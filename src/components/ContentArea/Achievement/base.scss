@@ -1,0 +1,49 @@
+.achievementMeasureContainer {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+
+  .achievementText {
+    font-family: lifecraft;
+    color: white;
+    padding-bottom: 4px;
+
+    opacity: 0.8;
+  }
+
+  .completedText {
+    opacity: 1;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+
+  .achievementLine {
+    position: absolute;
+    //top: 50px;
+    right: 100px;
+    width: 282px;
+    height: 4px;
+    background-color: white;
+    border-radius: 2px;
+
+    opacity: 0.25;
+
+    -webkit-box-shadow: #fff 0 -1px 4px, #ff0 0 -2px 10px, #ff8000 0 -10px 20px,
+      red 0 -18px 40px, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    box-shadow: #fff 0 -1px 4px, #ff0 0 -2px 10px, #ff8000 0 -10px 20px,
+      red 0 -18px 40px, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  }
+
+  .completedLine {
+    background-color: lime;
+    opacity: 0.65;
+
+    -webkit-box-shadow: rgba(255, 255, 255, 0.75) 0 -1px 4px,
+      rgba(255, 255, 0, 0.75) 0 -2px 10px, #ff8000b9 0 -10px 20px,
+      rgba(255, 0, 0, 0.75) 0 -18px 40px, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    box-shadow: rgba(255, 255, 255, 0.75) 0 -1px 4px,
+      rgba(255, 255, 0, 0.75) 0 -2px 10px, #ff8000b6 0 -10px 20px,
+      rgba(255, 0, 0, 0.75) 0 -18px 40px, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  }
+}

@@ -1,0 +1,32 @@
+// html {
+//   background: url(../../resources/images/background_big.jpg) no-repeat center
+//     center fixed;
+//   -webkit-background-size: cover;
+//   -moz-background-size: cover;
+//   -o-background-size: cover;
+//   background-size: cover;
+// }
+
+.main {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+
+  @media only screen and (max-width: 640px) {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+  }
+}
+
+// @media only screen and (max-width: 640px) {
+//   html {
+//     background-image: url("../../resources/images/background_big.jpg");
+//     min-height: 100%;
+//     background-repeat: no-repeat;
+//     background-attachment: fixed;
+//     background-position: center;
+//     background-size: cover;
+//   }
+// }

@@ -1,0 +1,22 @@
+.achievementContainer {
+  position: absolute;
+  right: 25%;
+  top: 23%;
+  width: 380px;
+  height: 430px;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+
+  @media only screen and (max-width: 640px) {
+    position: relative;
+    transform: scale(0.75);
+    right: 0;
+    top: 0;
+    margin-top: 35px;
+  }
+}

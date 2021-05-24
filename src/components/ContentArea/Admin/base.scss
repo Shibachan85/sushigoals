@@ -1,0 +1,40 @@
+.adminArea {
+  width: fit-content;
+  position: absolute;
+  right: 50px;
+  top: 50px;
+  .adminBtn {
+    all: unset;
+    padding: 1px 7px 4px 7px;
+    border: 1px solid rgba(255, 255, 255, 0.356);
+    border-radius: 3px;
+
+    color: rgba(255, 255, 255, 0.356);
+
+    &:hover {
+      border-color: white;
+      color: white;
+      cursor: pointer;
+    }
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+  }
+}
+
+.adminArea {
+  @media only screen and (max-width: 640px) {
+    display: flex;
+    position: static;
+    right: 0;
+    top: 0;
+    width: 100%;
+    justify-content: flex-end;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+}

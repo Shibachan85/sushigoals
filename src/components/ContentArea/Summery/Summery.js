@@ -1,5 +1,6 @@
 import "./base.scss";
 import { MAX_GOLD } from "../../../utilities/customfunctions";
+import Spinner from "../../../utilities/Spinner/Spinner";
 
 const Summery = (props) => {
   return (
@@ -10,7 +11,7 @@ const Summery = (props) => {
       </span>
       <span className={"summerValues"}>
         <h3>{MAX_GOLD}g</h3>
-        <h3>{props.currentGold}g</h3>
+        {props.isPending ? <Spinner small /> : <h3>{props.currentGold}g</h3>}
       </span>
     </div>
   );

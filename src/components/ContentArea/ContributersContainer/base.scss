@@ -6,7 +6,7 @@
   top: 43%;
   transform: translateY(-50%);
   height: 200px;
-  width: 300px;
+  min-width: 150px;
   padding-left: 25px;
   overflow-y: auto;
   direction: rtl;
@@ -41,7 +41,6 @@
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
-
   @media only screen and (max-width: 640px) {
     position: relative;
     top: 0;
@@ -51,4 +50,9 @@
     margin-top: 125px;
     margin-bottom: 100px;
   }
+}
+
+.loadingStyle {
+  display: block;
+  overflow-y: unset;
 }

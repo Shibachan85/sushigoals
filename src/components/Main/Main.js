@@ -4,10 +4,29 @@ import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import ContentArea from "../ContentArea/ContentArea";
 import Background from "./Background/Background";
-import { deviceIsMobile, MOBILE_WIDTH } from "../../utilities/customfunctions";
+import {
+  deviceIsMobile,
+  MOBILE_WIDTH,
+  URL,
+} from "../../utilities/customfunctions";
+import axios from "axios";
 
 const Main = () => {
   const [isMobile, setIsMobile] = useState(deviceIsMobile());
+  const [data, setData] = useState([]);
+  const [isPending, setIsPending] = useState(true);
+
+  useEffect(() => {
+    axios
+      .get(URL + "/guild-vault-contributers")
+      .then((response) => {
+        setData(response.data);
+        setIsPending(false);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
   //const [coords, setCoords] = useState({ x: 0, y: 0 });
 
   // function getCursorPosition(canvas, event) {
@@ -48,7 +67,7 @@ const Main = () => {
         </p>
       )} */}
       <Header />
-      <ContentArea isMobile={isMobile} />
+      <ContentArea isMobile={isMobile} data={data} isPending={isPending} />
       <Background isMobile={isMobile} />
       <Footer />
     </div>

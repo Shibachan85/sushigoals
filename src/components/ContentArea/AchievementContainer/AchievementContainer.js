@@ -17,7 +17,6 @@ import {
 
 const AchievementContainer = (props) => {
   const [currentHeight, setCurrentHeight] = useState(0);
-  const [amount, setAmount] = useState(0);
 
   useEffect(() => {
     let result =
@@ -122,20 +121,8 @@ const AchievementContainer = (props) => {
     return goals;
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    props.setCurrentGold(amount);
-  };
-
-  const handleChange = (e) => {
-    setAmount(e.target.value);
-  };
-
   return (
     <div className={"achievementContainer"}>
-      <form onSubmit={handleClick}>
-        <input type="number" value={amount} onChange={handleChange} />
-      </form>
       <Potion height={currentHeight} max={MAX_HEIGHT} />
       {generateGoals()}
     </div>

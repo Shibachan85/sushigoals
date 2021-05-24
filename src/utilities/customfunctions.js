@@ -6,6 +6,7 @@ export const LINE_HEIGHT = 4;
 export const X_MODIFIER = 1536;
 export const Y_MODIFIER = 720;
 export const MOBILE_WIDTH = 640;
+export const URL = "http://0a6196976ef4.ngrok.io";
 const SCREEN_WIDTH = window.screen.width;
 
 export const deviceIsMobile = () => {
@@ -28,20 +29,6 @@ export const LANTERN_COORDS = [
   { x: 641, y: 433, size: 3, delay: 2 },
   { x: 660, y: 436, size: 3, delay: 1.5 },
   { x: 689, y: 434, size: 3, delay: 1 },
-];
-
-export const CONTRIBUTERS = [
-  { name: "Shibachan", donated: 50 },
-  { name: "Muzi", donated: 200 },
-  { name: "Ike", donated: 150 },
-  { name: "Shibaki", donated: 500 },
-  { name: "Draknon", donated: 530 },
-  { name: "Tiny", donated: 120 },
-  { name: "Pendergast", donated: 70 },
-  { name: "Lumi", donated: 550 },
-  { name: "Oggolog", donated: 1 },
-  { name: "Laur", donated: 550 },
-  { name: "Aramish", donated: 30 },
 ];
 
 export const INTERVAL_VALUE = {

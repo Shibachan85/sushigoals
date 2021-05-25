@@ -8,6 +8,14 @@ import Summery from "./Summery/Summery";
 import "./base.scss";
 import LoginModal from "./LoginModal/LoginModal";
 import DonationForm from "./DonationForm/DonationForm";
+import {
+  useCurrentUser,
+  useDispatchCurrentUser,
+} from "../../utilities/Context/CurrentUser/CurrentUser";
+import axios from "axios";
+import { URL } from "../../utilities/customfunctions";
+import * as types from "../../utilities/Context/types";
+import * as actions from "../../utilities/Context/actions";
 
 const ContentArea = (props) => {
   const [currentGold, setCurrentGold] = useState(0);
@@ -15,6 +23,20 @@ const ContentArea = (props) => {
   const [isAuthed, setIsAuthed] = useState(false);
   const [userData, setUserData] = useState({});
   const [token, setToken] = useState(null);
+  const currentUser = useCurrentUser();
+  const dispatch = useDispatchCurrentUser();
+
+  const handleLogout = () => {
+    axios
+      .post(URL + "/logout")
+      .then((response) => {
+        dispatch(actions.logout(types.LOGOUT));
+        console.log(response);
+      })
+      .catch(() => {
+        console.error("FAILED TO LOGOUT USER");
+      });
+  };
 
   useEffect(() => {
     if (props.data.length > 0) {
@@ -43,6 +65,7 @@ const ContentArea = (props) => {
         />
       )}
       {isAuthed && <DonationForm userData={userData} token={token} />}
+      {currentUser.isAuthed && <button onClick={handleLogout}>Logout</button>}
     </div>
   );
 };

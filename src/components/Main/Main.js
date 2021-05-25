@@ -69,6 +69,20 @@ const Main = () => {
       <Header />
       <ContentArea isMobile={isMobile} data={data} isPending={isPending} />
       <Background isMobile={isMobile} />
+      <button
+        onClick={() => {
+          axios
+            .get(URL + "/test-colls")
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }}
+      >
+        Get Test
+      </button>
       <Footer />
     </div>
   );

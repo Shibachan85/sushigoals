@@ -6,7 +6,7 @@ export const LINE_HEIGHT = 4;
 export const X_MODIFIER = 1536;
 export const Y_MODIFIER = 720;
 export const MOBILE_WIDTH = 640;
-export const URL = "http://0a6196976ef4.ngrok.io";
+export const URL = "";
 const SCREEN_WIDTH = window.screen.width;
 
 export const deviceIsMobile = () => {

@@ -25,20 +25,17 @@ const DonationForm = (props) => {
   };
 
   const addDonation = () => {
-    const config = {
-      headers: { Authorization: `Bearer ${props.token}` },
-    };
-
     const bodyParameters = {
       name: state.characterName,
       gold: state.gold,
     };
 
     axios
-      .post(URL + "/guild-vault-contributers", bodyParameters, config)
+      .post(URL + "/guild-vault-contributers", bodyParameters)
       .then(() => {
         setSuccess(true);
         setCompleted(true);
+        props.getAllContributes();
       })
       .catch((error) => {
         setSuccess(false);

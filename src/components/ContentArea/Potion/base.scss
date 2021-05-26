@@ -17,4 +17,10 @@
     top: 0;
     left: 82px;
   }
+
+  .potionOutline {
+    opacity: 0.85;
+    -webkit-filter: drop-shadow(5px 5px 5px #222222);
+    filter: drop-shadow(5px 5px 5px #222222);
+  }
 }

@@ -15,12 +15,30 @@ const ContributersContainer = (props) => {
         <Spinner />
       ) : (
         props.data
-          .map((contributer, index) => (
-            <ContributerItem
-              key={contributer.name + index + contributer.gold}
-              content={`${contributer.name} donated ${contributer.gold}g`}
-            />
-          ))
+          .map((contributer, index) => {
+            const isAchievement = contributer.gold === -1;
+            const setText = () => {
+              if (isAchievement) {
+                return contributer.name;
+              }
+              return `${contributer.name} donated ${contributer.gold}g`;
+            };
+
+            const achievementStyle = () => {
+              if (isAchievement) {
+                return true;
+              }
+              return false;
+            };
+
+            return (
+              <ContributerItem
+                key={contributer.name + index + contributer.gold}
+                content={setText()}
+                isAchievement={achievementStyle()}
+              />
+            );
+          })
           .reverse()
       )}
     </div>

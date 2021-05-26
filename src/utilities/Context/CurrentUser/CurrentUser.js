@@ -18,24 +18,26 @@ const reducer = (state, action) => {
   }
 };
 
-export const CurretnUserProvider = ({ children }) => {
+export const CurrentUserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, { isAuthed: false });
 
   useEffect(() => {
-    const getUser = () => {
-      axios
-        .get(URL + "/users/me")
-        .then((response) => {
-          dispatch(actions.login(types.LOGIN, response.user));
-          console.log(response.user);
-        })
-        .catch((error) => {
-          console.error("FAILED TO GET USER");
-        });
-    };
+    const canGetUser = JSON.parse(sessionStorage.getItem("GET"));
+    if (canGetUser) {
+      const getUser = () => {
+        axios
+          .get(URL + "/users/me")
+          .then((response) => {
+            dispatch(actions.login(types.LOGIN, response.user));
+          })
+          .catch((error) => {
+            console.error("FAILED TO GET USER");
+          });
+      };
 
-    getUser();
-  }, []);
+      getUser();
+    }
+  }, [state.isAuthed]);
   return (
     <CurrentUserDispatchContext.Provider value={dispatch}>
       <CurrentUserStateContext.Provider value={state}>

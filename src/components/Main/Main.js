@@ -16,6 +16,29 @@ const Main = () => {
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
 
+  // const markup = useCallback(
+  //   (count) => {
+  //     const stringCountCorrection = count + 1;
+  //     return (
+  //       // Some markup that references the sections prop
+  //     );
+  //   },
+  //   [count, /* and any other dependencies the react linter suggests */]
+  // );
+
+  const getAllContributes = () => {
+    !isPending && setIsPending(true);
+    axios
+      .get(URL + "/guild-vault-contributers")
+      .then((response) => {
+        setData(response.data);
+        setIsPending(false);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   useEffect(() => {
     axios
       .get(URL + "/guild-vault-contributers")
@@ -61,28 +84,14 @@ const Main = () => {
 
   return (
     <div className={"main"}>
-      {/* {!isMobile && (
-        <p style={{ color: "white" }}>
-          Current coords: x: {coords.x}, y: {coords.y}
-        </p>
-      )} */}
       <Header />
-      <ContentArea isMobile={isMobile} data={data} isPending={isPending} />
+      <ContentArea
+        isMobile={isMobile}
+        data={data}
+        isPending={isPending}
+        getAllContributes={getAllContributes}
+      />
       <Background isMobile={isMobile} />
-      <button
-        onClick={() => {
-          axios
-            .get(URL + "/test-colls")
-            .then((response) => {
-              console.log(response);
-            })
-            .catch((err) => {
-              console.error(err);
-            });
-        }}
-      >
-        Get Test
-      </button>
       <Footer />
     </div>
   );

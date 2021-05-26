@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-//import { CONTRIBUTERS } from "../../utilities/customfunctions";
 import AchievementContainer from "./AchievementContainer/AchievementContainer";
 import AdminArea from "./Admin/AdminArea";
 import ContributersContainer from "./ContributersContainer/ContributersContainer";
@@ -8,33 +7,70 @@ import Summery from "./Summery/Summery";
 import "./base.scss";
 import LoginModal from "./LoginModal/LoginModal";
 import DonationForm from "./DonationForm/DonationForm";
-import {
-  useCurrentUser,
-  useDispatchCurrentUser,
-} from "../../utilities/Context/CurrentUser/CurrentUser";
+import { useCurrentUser } from "../../utilities/Context/CurrentUser/CurrentUser";
+import { INTERVAL_GOLD, URL } from "../../utilities/customfunctions";
 import axios from "axios";
-import { URL } from "../../utilities/customfunctions";
-import * as types from "../../utilities/Context/types";
-import * as actions from "../../utilities/Context/actions";
 
 const ContentArea = (props) => {
-  const [currentGold, setCurrentGold] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isAuthed, setIsAuthed] = useState(false);
-  const [userData, setUserData] = useState({});
-  const [token, setToken] = useState(null);
+  const [currentGold, setCurrentGold] = useState(-1);
+  const [loginIsOpen, setLoginIsOpen] = useState(false);
+  const [donationIsOpen, setDonationIsOpen] = useState(false);
   const currentUser = useCurrentUser();
-  const dispatch = useDispatchCurrentUser();
+  const isAuthed = currentUser.isAuthed;
 
-  const handleLogout = () => {
+  //const dispatch = useDispatchCurrentUser();
+
+  // const handleLogout = () => {
+  //   axios
+  //     .post(URL + "/logout")
+  //     .then(() => {
+  //       dispatch(actions.logout(types.LOGOUT));
+  //     })
+  //     .catch(() => {
+  //       console.error("FAILED TO LOGOUT USER");
+  //     });
+  // };
+
+  const checkIfNewAchievement = (oldGold, newGold) => {
+    if (oldGold === -1) {
+      return false;
+    } else if (oldGold < INTERVAL_GOLD.first && newGold > INTERVAL_GOLD.first) {
+      return 1;
+    } else if (
+      oldGold < INTERVAL_GOLD.second &&
+      newGold > INTERVAL_GOLD.second
+    ) {
+      return 2;
+    } else if (oldGold < INTERVAL_GOLD.third && newGold > INTERVAL_GOLD.third) {
+      return 3;
+    } else if (
+      oldGold < INTERVAL_GOLD.fourth &&
+      newGold > INTERVAL_GOLD.fourth
+    ) {
+      return 4;
+    } else if (oldGold < INTERVAL_GOLD.fifth && newGold > INTERVAL_GOLD.fifth) {
+      return 5;
+    } else if (oldGold < INTERVAL_GOLD.sixth && newGold > INTERVAL_GOLD.sixth) {
+      return 6;
+    } else {
+      return false;
+    }
+  };
+
+  const addDonationAchievement = (achievement, sushiFortune) => {
+    const bodyParameters = {
+      name: achievement.title,
+      gold: achievement.gold,
+    };
+
     axios
-      .post(URL + "/logout")
-      .then((response) => {
-        dispatch(actions.logout(types.LOGOUT));
-        console.log(response);
+      .post(URL + "/guild-vault-contributers", bodyParameters)
+      .then(() => {
+        setCurrentGold(sushiFortune);
+        props.getAllContributes();
       })
-      .catch(() => {
-        console.error("FAILED TO LOGOUT USER");
+      .catch((error) => {
+        console.error("FAILED TO SET ACHIEVEMENT");
       });
   };
 
@@ -43,13 +79,27 @@ const ContentArea = (props) => {
       const sushiFortune = props.data.reduce((acc, curr) => {
         return acc + curr.gold;
       }, 0);
-      setCurrentGold(sushiFortune);
+      const newAchievement = checkIfNewAchievement(currentGold, sushiFortune);
+      if (newAchievement !== false) {
+        const achievement = {
+          title: `Congratulations! You unlocked tab ${newAchievement}!`,
+          gold: -1,
+        };
+        addDonationAchievement(achievement, sushiFortune);
+      }
+      !newAchievement && setCurrentGold(sushiFortune);
     }
   }, [props.data]);
 
   return (
     <div className={"contentArea"}>
-      <AdminArea isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AdminArea
+        isOpen={loginIsOpen}
+        setIsOpen={setLoginIsOpen}
+        isAuthed={isAuthed}
+        donationIsOpen={donationIsOpen}
+        setDonationIsOpen={setDonationIsOpen}
+      />
       <AchievementContainer
         currentGold={currentGold}
         setCurrentGold={setCurrentGold}
@@ -57,15 +107,10 @@ const ContentArea = (props) => {
       <Summery currentGold={currentGold} isPending={props.isPending} />
       <ContributersContainer data={props.data} isPending={props.isPending} />
       {!props.isMobile && <LanternController />}
-      {isOpen && !isAuthed && (
-        <LoginModal
-          setUserData={setUserData}
-          setIsAuthed={setIsAuthed}
-          setToken={setToken}
-        />
+      {loginIsOpen && !isAuthed && <LoginModal />}
+      {donationIsOpen && isAuthed && (
+        <DonationForm getAllContributes={props.getAllContributes} />
       )}
-      {isAuthed && <DonationForm userData={userData} token={token} />}
-      {currentUser.isAuthed && <button onClick={handleLogout}>Logout</button>}
     </div>
   );
 };

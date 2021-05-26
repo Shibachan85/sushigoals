@@ -2,28 +2,17 @@ import { useState } from "react";
 import "./base.scss";
 import axios from "axios";
 import { URL } from "../../../utilities/customfunctions";
-//import Cookies from "universal-cookie";
 import { useDispatchCurrentUser } from "../../../utilities/Context/CurrentUser/CurrentUser";
 import * as types from "../../../utilities/Context/types";
 import * as actions from "../../../utilities/Context/actions";
-//const cookies = new Cookies();
 
 const LoginModal = (props) => {
   const [state, setState] = useState({ username: "", password: "" });
   const [invalid, setInvalid] = useState(false);
   const dispatch = useDispatchCurrentUser();
 
-  const cookieHandler = (token) => {
-    //cookies.set("myCat", token, { path: "/" });
-    //console.log(cookies.get("myCat"));
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    // const config = {
-    //   headers: { Authorization: `Bearer ${props.token}` },
-    // };
 
     const bodyParameters = {
       identifier: "Shibachan85",
@@ -37,13 +26,8 @@ const LoginModal = (props) => {
     axios
       .post(URL + "/auth/local", bodyParameters, credentials)
       .then((response) => {
-        props.setIsAuthed(true);
-        const token = response.data.jwt;
-        props.setToken(token);
-        props.setUserData(response.data);
-        cookieHandler(token);
         dispatch(actions.login(types.LOGIN, response.data));
-        console.log(response.user);
+        sessionStorage.setItem("GET", "true");
       })
       .catch((error) => {
         setInvalid(true);

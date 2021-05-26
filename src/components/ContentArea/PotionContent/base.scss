@@ -19,7 +19,6 @@
     rgba(0, 255, 0, 0.35) 0 -9px 10px, 5px 5px 7px 5px rgba(0, 0, 0, 0);
 }
 
-button,
 h4 {
   position: absolute;
   z-index: 10;
@@ -28,12 +27,4 @@ h4 {
 h4 {
   top: -100px;
   color: white;
-}
-
-button + button {
-  margin-top: 50px;
-}
-
-h4 + h4 {
-  margin-top: 50px;
 }

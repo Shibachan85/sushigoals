@@ -14,7 +14,7 @@ const OPACITY = {
   reflection_bottom: 0.3,
   cork: 1,
   bottle_top: 0.5,
-  bottle_outline: 1,
+  bottle_outline: 0.85,
   reflection_top: 0.75,
   reflection_circles: 0.75,
   content: 0.75,
@@ -46,6 +46,7 @@ const Potion = (props) => {
         alt={"potion"}
       />
       <img
+        className={"potionOutline"}
         style={{ opacity: OPACITY.bottle_outline }}
         src={bottle_outline}
         alt={"potion"}

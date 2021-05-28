@@ -10,6 +10,7 @@ import {
   URL,
 } from "../../utilities/customfunctions";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 const Main = () => {
   const [isMobile, setIsMobile] = useState(deviceIsMobile());
@@ -84,6 +85,9 @@ const Main = () => {
 
   return (
     <div className={"main"}>
+      <Helmet>
+        <title>Sushi: A world of warcraft commewnity - Classic</title>
+      </Helmet>
       <Header />
       <ContentArea
         isMobile={isMobile}

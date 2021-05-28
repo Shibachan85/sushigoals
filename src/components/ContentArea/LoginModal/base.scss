@@ -20,9 +20,6 @@
       color: white;
     }
 
-    input {
-    }
-
     .loginBtnContainer {
       position: absolute;
       bottom: 20px;
@@ -64,8 +61,52 @@
 
   -webkit-box-shadow: -3px 5px 15px 4px rgba(0, 0, 0, 0.41);
   box-shadow: -3px 5px 15px 4px rgba(0, 0, 0, 0.41);
+
+  @media only screen and (max-width: 640px) {
+    position: fixed;
+    right: unset;
+    top: 28%;
+    background-color: #000000ce;
+    form {
+      input {
+        width: 60%;
+      }
+      .loginBtnContainer {
+        button {
+          border: 1px solid white;
+          color: white;
+        }
+      }
+    }
+  }
 }
 
-// @keyframes slide-in {
-//   from {}
-// }
+.loginMount {
+  animation: mount 0.25s ease-out;
+}
+
+.loginUnmount {
+  animation: unmount 0.25s ease-out;
+}
+
+@keyframes mount {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes unmount {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0);
+    opacity: 0;
+  }
+}

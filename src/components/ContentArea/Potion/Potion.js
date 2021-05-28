@@ -10,11 +10,11 @@ import PotionContent from "../PotionContent/PotionContent";
 
 // Opacity back to front
 const OPACITY = {
-  body: 0.05,
-  reflection_bottom: 0.3,
+  body: 0.1,
+  reflection_bottom: 0.2,
   cork: 1,
   bottle_top: 0.5,
-  bottle_outline: 0.85,
+  bottle_outline: 1,
   reflection_top: 0.75,
   reflection_circles: 0.75,
   content: 0.75,
@@ -34,8 +34,14 @@ const Potion = (props) => {
         src={cork}
         alt={"potion"}
       />
-      <img style={{ opacity: OPACITY.body }} src={bottle_body} alt={"potion"} />
       <img
+        className={"potionBody"}
+        style={{ opacity: OPACITY.body }}
+        src={bottle_body}
+        alt={"potion"}
+      />
+      <img
+        className={"potionReflectionBottom"}
         style={{ opacity: OPACITY.reflection_bottom }}
         src={reflection_bottom}
         alt={"potion"}
@@ -52,12 +58,20 @@ const Potion = (props) => {
         alt={"potion"}
       />
       <img
-        style={{ opacity: OPACITY.reflection_top, top: "3px" }}
+        className={"potionOutlineRight"}
+        style={{ opacity: OPACITY.bottle_outline }}
+        src={bottle_outline}
+        alt={"potion"}
+      />
+      <img
+        className={"potionReflectionTop"}
+        style={{ opacity: OPACITY.reflection_top }}
         src={reflection_top}
         alt={"potion"}
       />
       <img
-        style={{ opacity: OPACITY.reflection_circles, zIndex: "10" }}
+        className={"potionReflectionCircles"}
+        style={{ opacity: OPACITY.reflection_circles }}
         src={reflection_circles}
         alt={"potion"}
       />

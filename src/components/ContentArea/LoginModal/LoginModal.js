@@ -1,15 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import "./base.scss";
 import axios from "axios";
 import { URL } from "../../../utilities/customfunctions";
 import { useDispatchCurrentUser } from "../../../utilities/Context/CurrentUser/CurrentUser";
 import * as types from "../../../utilities/Context/types";
 import * as actions from "../../../utilities/Context/actions";
+import classnames from "classnames";
 
 const LoginModal = (props) => {
   const [state, setState] = useState({ username: "", password: "" });
   const [invalid, setInvalid] = useState(false);
+  const [unmount, setUnmount] = useState(false);
   const dispatch = useDispatchCurrentUser();
+  const refNode = useRef(null);
+
+  const handleClick = useCallback(
+    (e) => {
+      if (!refNode.current.contains(e.target)) {
+        setUnmount(true);
+        setTimeout(() => {
+          props.setLoginIsOpen(false);
+        }, 200);
+      }
+    },
+    [props]
+  );
+
+  useEffect(() => {
+    document.addEventListener("mouseup", handleClick);
+    return () => {
+      document.removeEventListener("mouseup", handleClick);
+    };
+  }, [handleClick]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,7 +64,16 @@ const LoginModal = (props) => {
   };
 
   return (
-    <div className={"loginModal"}>
+    <div
+      className={classnames(
+        "loginModal",
+        { loginMount: !unmount },
+        {
+          loginUnmount: unmount,
+        }
+      )}
+      ref={refNode}
+    >
       <form onSubmit={handleSubmit}>
         <label>
           Username

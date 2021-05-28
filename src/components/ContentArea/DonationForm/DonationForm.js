@@ -1,14 +1,39 @@
 import "./base.scss";
 import axios from "axios";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import classnames from "classnames";
 import { URL } from "../../../utilities/customfunctions";
 
 const DonationForm = (props) => {
-  const [state, setState] = useState({ username: "", password: "" });
+  const [state, setState] = useState({ characterName: "", gold: "" });
   const [invalid, setInvalid] = useState(false);
   const [success, setSuccess] = useState(false);
   const [completed, setCompleted] = useState(false);
+  const [unmount, setUnmount] = useState(false);
+  const refNode = useRef(null);
+
+  const handleClick = useCallback(
+    (e) => {
+      if (!refNode.current.contains(e.target)) {
+        setUnmount(true);
+        setTimeout(() => {
+          props.setDonationIsOpen(false);
+        }, 200);
+      }
+    },
+    [props]
+  );
+
+  useEffect(() => {
+    !props.donationIsOpen && handleClick();
+  }, [props.close, handleClick, props.donationIsOpen]);
+
+  useEffect(() => {
+    document.addEventListener("mouseup", handleClick);
+    return () => {
+      document.removeEventListener("mouseup", handleClick);
+    };
+  }, [handleClick]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +53,7 @@ const DonationForm = (props) => {
     const bodyParameters = {
       name: state.characterName,
       gold: state.gold,
+      isAchievement: false,
     };
 
     axios
@@ -44,10 +70,17 @@ const DonationForm = (props) => {
   };
 
   return (
-    <div className={"donationContainer"}>
+    <div
+      className={classnames(
+        "donationContainer",
+        { donationMount: !unmount },
+        { donationUnmount: unmount }
+      )}
+      ref={refNode}
+    >
       <form onSubmit={handleSubmit}>
         <label>
-          Character name
+          Character
           <input
             type={"text"}
             name={"characterName"}

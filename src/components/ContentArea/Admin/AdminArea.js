@@ -1,5 +1,4 @@
 import "./base.scss";
-import CloseIcon from "../../../resources/images/Icons/close_gray.svg";
 import classnames from "classnames";
 import { useDispatchCurrentUser } from "../../../utilities/Context/CurrentUser/CurrentUser";
 import axios from "axios";
@@ -40,6 +39,11 @@ const AdminArea = (props) => {
     }
   };
 
+  const handleDonationClick = () => {
+    !props.donationIsOpen && props.setDonationIsOpen(true);
+    props.donationIsOpen && props.setCloseDonationWithAnimation(true);
+  };
+
   return (
     <div
       className={classnames(
@@ -52,11 +56,7 @@ const AdminArea = (props) => {
     >
       {props.isAuthed && (
         <div className={"adminPanel__buttonContainer"}>
-          <button
-            onClick={() => props.setDonationIsOpen(!props.donationIsOpen)}
-          >
-            Add donation
-          </button>
+          <button onClick={handleDonationClick}>Add donation</button>
           <button>Statistics</button>
         </div>
       )}

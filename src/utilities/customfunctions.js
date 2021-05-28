@@ -16,6 +16,13 @@ export const deviceIsMobile = () => {
   return false;
 };
 
+export const calcCurrentAchievement = (data) => {
+  const unlocks = data.reduce((acc, cur) => {
+    return acc + cur.isAchievement;
+  }, 0);
+  return unlocks;
+};
+
 export const LANTERN_COORDS = [
   { x: 412, y: 584, size: 18, delay: 5 },
   { x: 1160, y: 118, size: 18, delay: 5 },

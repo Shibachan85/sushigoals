@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import AchievementContainer from "./AchievementContainer/AchievementContainer";
 import AdminArea from "./Admin/AdminArea";
 import ContributersContainer from "./ContributersContainer/ContributersContainer";
@@ -12,82 +12,121 @@ import { INTERVAL_GOLD, URL } from "../../utilities/customfunctions";
 import axios from "axios";
 
 const ContentArea = (props) => {
-  const [currentGold, setCurrentGold] = useState(-1);
+  const [currentGold, setCurrentGold] = useState(0);
   const [loginIsOpen, setLoginIsOpen] = useState(false);
   const [donationIsOpen, setDonationIsOpen] = useState(false);
+  const [closeDonationWithAnimation, setCloseDonationWithAnimation] =
+    useState(false);
   const currentUser = useCurrentUser();
   const isAuthed = currentUser.isAuthed;
 
-  //const dispatch = useDispatchCurrentUser();
+  const checkUnlocks = (highestCrossedInterval, currentAchievement) => {
+    if (highestCrossedInterval - 1 > currentAchievement) {
+      const unlocks = {
+        newUnlock: currentAchievement + 1,
+        remainingUnlocks: highestCrossedInterval - currentAchievement,
+      };
+      return unlocks;
+    }
+    return highestCrossedInterval;
+  };
 
-  // const handleLogout = () => {
-  //   axios
-  //     .post(URL + "/logout")
-  //     .then(() => {
-  //       dispatch(actions.logout(types.LOGOUT));
-  //     })
-  //     .catch(() => {
-  //       console.error("FAILED TO LOGOUT USER");
-  //     });
-  // };
-
-  const checkIfNewAchievement = (oldGold, newGold) => {
-    if (oldGold === -1) {
+  const checkIfNewAchievement = (
+    oldGold,
+    newGold,
+    numberOfUnlocks,
+    isAchievementPost
+  ) => {
+    if (isAchievementPost) {
       return false;
-    } else if (oldGold < INTERVAL_GOLD.first && newGold > INTERVAL_GOLD.first) {
-      return 1;
     } else if (
-      oldGold < INTERVAL_GOLD.second &&
-      newGold > INTERVAL_GOLD.second
+      (oldGold < INTERVAL_GOLD.first && newGold > INTERVAL_GOLD.first) ||
+      newGold === INTERVAL_GOLD.first
     ) {
-      return 2;
-    } else if (oldGold < INTERVAL_GOLD.third && newGold > INTERVAL_GOLD.third) {
-      return 3;
+      return checkUnlocks(1, numberOfUnlocks);
     } else if (
-      oldGold < INTERVAL_GOLD.fourth &&
-      newGold > INTERVAL_GOLD.fourth
+      (oldGold < INTERVAL_GOLD.second && newGold > INTERVAL_GOLD.second) ||
+      newGold === INTERVAL_GOLD.second
     ) {
-      return 4;
-    } else if (oldGold < INTERVAL_GOLD.fifth && newGold > INTERVAL_GOLD.fifth) {
-      return 5;
-    } else if (oldGold < INTERVAL_GOLD.sixth && newGold > INTERVAL_GOLD.sixth) {
-      return 6;
+      return checkUnlocks(2, numberOfUnlocks);
+    } else if (
+      (oldGold < INTERVAL_GOLD.third && newGold > INTERVAL_GOLD.third) ||
+      newGold === INTERVAL_GOLD.third
+    ) {
+      return checkUnlocks(3, numberOfUnlocks);
+    } else if (
+      (oldGold < INTERVAL_GOLD.fourth && newGold > INTERVAL_GOLD.fourth) ||
+      newGold === INTERVAL_GOLD.fourth
+    ) {
+      return checkUnlocks(4, numberOfUnlocks);
+    } else if (
+      (oldGold < INTERVAL_GOLD.fifth && newGold > INTERVAL_GOLD.fifth) ||
+      newGold === INTERVAL_GOLD.fifth
+    ) {
+      return checkUnlocks(5, numberOfUnlocks);
+    } else if (
+      (oldGold < INTERVAL_GOLD.sixth && newGold > INTERVAL_GOLD.sixth) ||
+      newGold === INTERVAL_GOLD.sixth
+    ) {
+      return checkUnlocks(6, numberOfUnlocks);
     } else {
       return false;
     }
   };
 
-  const addDonationAchievement = (achievement, sushiFortune) => {
-    const bodyParameters = {
-      name: achievement.title,
-      gold: achievement.gold,
-    };
+  const addDonationAchievement = useCallback(
+    (newAchievement, gold, repeat) => {
+      const achievement = {
+        title: `Congratulations! You unlocked tab ${newAchievement}!`,
+        isAchievement: true,
+      };
+      const bodyParameters = {
+        name: achievement.title,
+        isAchievement: achievement.isAchievement,
+      };
 
-    axios
-      .post(URL + "/guild-vault-contributers", bodyParameters)
-      .then(() => {
-        setCurrentGold(sushiFortune);
-        props.getAllContributes();
-      })
-      .catch((error) => {
-        console.error("FAILED TO SET ACHIEVEMENT");
-      });
-  };
+      axios
+        .post(URL + "/guild-vault-contributers", bodyParameters)
+        .then(() => {
+          setCurrentGold(gold);
+          props.getAllContributes();
+          if (repeat) {
+            addDonationAchievement(currentGold);
+          }
+        })
+        .catch((error) => {
+          console.error("FAILED TO SET ACHIEVEMENT");
+        });
+    },
+    [props, currentGold]
+  );
 
   useEffect(() => {
     if (props.data.length > 0) {
-      const sushiFortune = props.data.reduce((acc, curr) => {
-        return acc + curr.gold;
-      }, 0);
-      const newAchievement = checkIfNewAchievement(currentGold, sushiFortune);
-      if (newAchievement !== false) {
-        const achievement = {
-          title: `Congratulations! You unlocked tab ${newAchievement}!`,
-          gold: -1,
-        };
-        addDonationAchievement(achievement, sushiFortune);
+      const sushiFortune = props.data.reduce(
+        (acc, cur) => {
+          return {
+            gold: acc.gold + cur.gold,
+            numberOfUnlocks: cur.isAchievement
+              ? acc.numberOfUnlocks + 1
+              : acc.numberOfUnlocks,
+          };
+        },
+        { gold: 0, numberOfUnlocks: 0 }
+      );
+
+      const isAchievementPost = props.data[props.data.length - 1].isAchievement;
+      const newAchievement = checkIfNewAchievement(
+        currentGold,
+        sushiFortune.gold,
+        sushiFortune.numberOfUnlocks,
+        isAchievementPost
+      );
+
+      if (newAchievement) {
+        addDonationAchievement(newAchievement, sushiFortune.gold);
       }
-      !newAchievement && setCurrentGold(sushiFortune);
+      !newAchievement && setCurrentGold(sushiFortune.gold);
     }
   }, [props.data]);
 
@@ -99,17 +138,30 @@ const ContentArea = (props) => {
         isAuthed={isAuthed}
         donationIsOpen={donationIsOpen}
         setDonationIsOpen={setDonationIsOpen}
+        setCloseDonationWithAnimation={setCloseDonationWithAnimation}
       />
       <AchievementContainer
         currentGold={currentGold}
         setCurrentGold={setCurrentGold}
       />
       <Summery currentGold={currentGold} isPending={props.isPending} />
-      <ContributersContainer data={props.data} isPending={props.isPending} />
+      <ContributersContainer
+        data={props.data}
+        isPending={props.isPending}
+        isAuthed={isAuthed}
+        getAllContributes={props.getAllContributes}
+      />
       {!props.isMobile && <LanternController />}
-      {loginIsOpen && !isAuthed && <LoginModal />}
+      {loginIsOpen && !isAuthed && (
+        <LoginModal setLoginIsOpen={setLoginIsOpen} />
+      )}
       {donationIsOpen && isAuthed && (
-        <DonationForm getAllContributes={props.getAllContributes} />
+        <DonationForm
+          getAllContributes={props.getAllContributes}
+          donationIsOpen={donationIsOpen}
+          setDonationIsOpen={setDonationIsOpen}
+          close={closeDonationWithAnimation}
+        />
       )}
     </div>
   );

@@ -1,0 +1,128 @@
+.donationContainer {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 100px;
+  width: 349px;
+  height: 200px;
+  background-color: #0000009f;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.356);
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    label {
+      display: flex;
+      justify-content: flex-end;
+      padding-bottom: 10px;
+      color: white;
+    }
+
+    input {
+      margin-left: 20px;
+    }
+
+    .donationBtnContainer {
+      bottom: 20px;
+      padding: 0 20px 0 20px;
+      box-sizing: border-box;
+      width: 75%;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+
+      button {
+        all: unset;
+        width: 85%;
+        text-align: center;
+        padding: 1px 7px 4px 7px;
+        border: 1px solid rgba(255, 255, 255, 0.356);
+        border-radius: 3px;
+
+        color: rgba(255, 255, 255, 0.356);
+
+        &:hover {
+          border-color: white;
+          color: white;
+          cursor: pointer;
+        }
+
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none;
+      }
+    }
+
+    p {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+
+  -webkit-box-shadow: -3px 5px 15px 4px rgba(0, 0, 0, 0.41);
+  box-shadow: -3px 5px 15px 4px rgba(0, 0, 0, 0.41);
+
+  .donationMessage {
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+  }
+
+  .successMessage {
+    color: green;
+    font-size: 14px;
+  }
+
+  .errorMessage {
+    color: red;
+    font-size: 14px;
+  }
+}
+
+.donationMount {
+  animation: mount 0.25s ease-out;
+}
+
+.donationUnmount {
+  animation: unmount 0.25s ease-out;
+}
+
+@keyframes mount {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes unmount {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .donationContainer {
+    right: unset;
+    top: 28%;
+    position: fixed;
+    background-color: #000000ce;
+  }
+}

@@ -1,0 +1,180 @@
+.adminArea {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  position: absolute;
+  top: 50px;
+  padding: 10px 10px 10px 15px;
+  background-color: #0000009f;
+  border-radius: 5px 0px 0px 5px;
+  border-left: 1px solid rgba(255, 255, 255, 0.356);
+  border-top: 1px solid rgba(255, 255, 255, 0.356);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.356);
+  box-sizing: border-box;
+
+  // .adminArrow {
+  //   //position: absolute;
+  //   //left: 0;'
+  //   margin-right: 10px;
+  // }
+  .adminLoginBtn {
+    all: unset;
+    padding: 1px 7px 4px 7px;
+    //border: 1px solid rgba(255, 255, 255, 0);
+    // border-radius: 3px;
+
+    color: rgba(255, 255, 255, 0.356);
+
+    &:hover {
+      border-color: white;
+      color: white;
+      cursor: pointer;
+      // border: 1px solid rgba(255, 255, 255, 0.356);
+      // border-radius: 3px;
+    }
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+  }
+
+  .adminCloseBtn {
+    &:hover {
+      color: white;
+      cursor: pointer;
+    }
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+  }
+
+  // @media only screen and (max-width: 640px) {
+  //   position: absolute !important;
+  //   right: 0 !important;
+  //   top: 1% !important;
+  //   background-color: transparent;
+  //   z-index: 200;
+  //   border: none;
+
+  //   button {
+  //     &:hover {
+  //       color: rgba(255, 255, 255, 0.356);
+  //     }
+  //   }
+  // }
+}
+
+.adminLoginPanel {
+  right: -75px !important;
+  transition: 0.4s ease-out !important;
+  animation: mountedLoginPanel 0.5s;
+  animation-fill-mode: backwards;
+
+  animation-delay: 1s;
+
+  &:hover {
+    right: 0px !important;
+  }
+}
+
+@keyframes mountedLoginPanel {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.adminPanel {
+  right: 0px;
+
+  .adminPanel__buttonContainer {
+    button {
+      margin-right: 50px;
+      color: rgba(255, 255, 255, 0.356);
+      cursor: pointer;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .adminArea {
+    display: flex;
+    position: absolute;
+    right: 0 !important;
+    top: 0;
+    //width: 100%;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    z-index: 100;
+    background-color: transparent;
+    border: none;
+    justify-content: space-around;
+
+    .adminLoginBtn {
+      color: rgba(255, 255, 255, 0.356);
+
+      &:hover {
+        color: rgba(255, 255, 255, 0.356);
+      }
+    }
+  }
+
+  .adminSlideIn {
+    width: 100% !important;
+  }
+
+  .adminPanel {
+    .adminPanel__buttonContainer {
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        white-space: nowrap;
+        //margin: 0 3px 0 3px;
+        &:hover {
+          color: rgba(255, 255, 255, 0.356);
+        }
+      }
+    }
+  }
+}
+
+.adminSlideIn {
+  animation: slideIn 0.5s ease-in;
+}
+
+.adminSlideOut {
+  animation: slideOut 0.52s ease-in;
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(105%));
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

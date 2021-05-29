@@ -1,0 +1,55 @@
+.potionContainer {
+  width: 266px;
+  height: 430px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .potionCork {
+    position: absolute;
+    width: 39%;
+    top: 0;
+    left: 82px;
+  }
+
+  .potionOutline {
+    filter: drop-shadow(5px 0px 5px #222222) sepia(50%) saturate(1);
+    -webkit-filter: drop-shadow(5px 0px 5px #222222) sepia(0%) saturate(0.5)
+      brightness(94%);
+  }
+
+  .potionOutlineRight {
+    filter: drop-shadow(5px 5px 5px #222222) sepia(50%) saturate(1);
+    -webkit-filter: drop-shadow(-2px 0px 3px #222222) sepia(0%) saturate(0.5)
+      brightness(100%);
+  }
+
+  .potionBody {
+    filter: sepia(100%) saturate(5);
+    -webkit-filter: sepia(100%) saturate(5);
+  }
+
+  .potionReflectionCircles {
+    opacity: 0.6;
+    z-index: 10;
+    filter: sepia(50%) saturate(1);
+    -webkit-filter: sepia(50%) saturate(1);
+  }
+
+  .potionReflectionTop {
+    top: 3px;
+    filter: sepia(50%) saturate(1);
+    -webkit-filter: sepia(50%) saturate(1);
+  }
+
+  .potionReflectionBottom {
+    filter: sepia(50%) saturate(1);
+    -webkit-filter: sepia(50%) saturate(1);
+  }
+}

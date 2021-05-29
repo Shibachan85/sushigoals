@@ -1,0 +1,58 @@
+.constributersContainer {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 38px;
+  top: 43%;
+  transform: translateY(-50%);
+  height: 200px;
+  min-width: 150px;
+  padding-left: 25px;
+  overflow-y: auto;
+  direction: rtl;
+
+  /* Track */
+  // &::-webkit-scrollbar-track {
+  //   background: transparent;
+  // }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: white;
+  }
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 12px;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 4px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: white !important;
+    border-radius: 4px;
+  }
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+  @media only screen and (max-width: 640px) {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: auto;
+    margin-top: 125px;
+    margin-bottom: 100px;
+  }
+}
+
+.loadingStyle {
+  display: block;
+  overflow-y: unset;
+}

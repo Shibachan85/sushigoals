@@ -2,7 +2,7 @@ import { useReducer, useContext, createContext, useEffect } from "react";
 import * as types from "../types";
 import * as actions from "../actions";
 import axios from "axios";
-import { URL } from "../../customfunctions";
+import { API_URL } from "../../customfunctions";
 
 const CurrentUserStateContext = createContext();
 const CurrentUserDispatchContext = createContext();
@@ -26,7 +26,7 @@ export const CurrentUserProvider = ({ children }) => {
     if (canGetUser) {
       const getUser = () => {
         axios
-          .get(URL + "/users/me")
+          .get(API_URL + "/users/me")
           .then((response) => {
             dispatch(actions.login(types.LOGIN, response.user));
           })

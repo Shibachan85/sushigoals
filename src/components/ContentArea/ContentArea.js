@@ -8,7 +8,7 @@ import "./base.scss";
 import LoginModal from "./LoginModal/LoginModal";
 import DonationForm from "./DonationForm/DonationForm";
 import { useCurrentUser } from "../../utilities/Context/CurrentUser/CurrentUser";
-import { INTERVAL_GOLD, URL } from "../../utilities/customfunctions";
+import { INTERVAL_GOLD, API_URL } from "../../utilities/customfunctions";
 import axios from "axios";
 
 const ContentArea = (props) => {
@@ -86,7 +86,7 @@ const ContentArea = (props) => {
       };
 
       axios
-        .post(URL + "/guild-vault-contributers", bodyParameters)
+        .post(API_URL + "/guild-vault-contributers", bodyParameters)
         .then(() => {
           setCurrentGold(gold);
           props.getAllContributes();

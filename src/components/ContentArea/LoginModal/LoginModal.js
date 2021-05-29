@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import "./base.scss";
 import axios from "axios";
-import { URL } from "../../../utilities/customfunctions";
+import { API_URL } from "../../../utilities/customfunctions";
 import { useDispatchCurrentUser } from "../../../utilities/Context/CurrentUser/CurrentUser";
 import * as types from "../../../utilities/Context/types";
 import * as actions from "../../../utilities/Context/actions";
@@ -37,8 +37,8 @@ const LoginModal = (props) => {
     e.preventDefault();
 
     const bodyParameters = {
-      identifier: "Shibachan85",
-      password: "FreyaEllie1719",
+      identifier: state.username,
+      password: state.username,
     };
 
     const credentials = {
@@ -46,7 +46,7 @@ const LoginModal = (props) => {
     };
 
     axios
-      .post(URL + "/auth/local", bodyParameters, credentials)
+      .post(API_URL + "/auth/local", bodyParameters, credentials)
       .then((response) => {
         dispatch(actions.login(types.LOGIN, response.data));
         sessionStorage.setItem("GET", "true");

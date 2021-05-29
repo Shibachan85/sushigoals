@@ -2,7 +2,7 @@ import "./base.scss";
 import classnames from "classnames";
 import { useDispatchCurrentUser } from "../../../utilities/Context/CurrentUser/CurrentUser";
 import axios from "axios";
-import { URL } from "../../../utilities/customfunctions";
+import { API_URL } from "../../../utilities/customfunctions";
 import * as types from "../../../utilities/Context/types";
 import * as actions from "../../../utilities/Context/actions";
 import { useState } from "react";
@@ -13,7 +13,7 @@ const AdminArea = (props) => {
 
   const handleLogout = () => {
     axios
-      .post(URL + "/logout")
+      .post(API_URL + "/logout")
       .then(() => {
         setUnmount(true);
         setTimeout(() => {

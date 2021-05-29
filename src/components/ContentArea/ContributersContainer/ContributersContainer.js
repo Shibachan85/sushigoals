@@ -1,4 +1,3 @@
-//import React, {useState, useState} from 'react';
 import classNames from "classnames";
 import Spinner from "../../../utilities/Spinner/Spinner";
 import ContributerItem from "../ContributerItem/ContributerItem";

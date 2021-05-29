@@ -2,7 +2,7 @@ import "./base.scss";
 import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import classnames from "classnames";
-import { URL } from "../../../utilities/customfunctions";
+import { API_URL } from "../../../utilities/customfunctions";
 
 const DonationForm = (props) => {
   const [state, setState] = useState({ characterName: "", gold: "" });
@@ -57,7 +57,7 @@ const DonationForm = (props) => {
     };
 
     axios
-      .post(URL + "/guild-vault-contributers", bodyParameters)
+      .post(API_URL + "/guild-vault-contributers", bodyParameters)
       .then(() => {
         setSuccess(true);
         setCompleted(true);

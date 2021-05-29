@@ -7,7 +7,7 @@ import Background from "./Background/Background";
 import {
   deviceIsMobile,
   MOBILE_WIDTH,
-  URL,
+  API_URL,
 } from "../../utilities/customfunctions";
 import axios from "axios";
 import { Helmet } from "react-helmet";
@@ -30,7 +30,7 @@ const Main = () => {
   const getAllContributes = () => {
     !isPending && setIsPending(true);
     axios
-      .get(URL + "/guild-vault-contributers")
+      .get(API_URL + "/guild-vault-contributers")
       .then((response) => {
         setData(response.data);
         setIsPending(false);
@@ -42,7 +42,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get(URL + "/guild-vault-contributers")
+      .get(API_URL + "/guild-vault-contributers")
       .then((response) => {
         setData(response.data);
         setIsPending(false);

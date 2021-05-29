@@ -3,6 +3,7 @@ import Spinner from "../../../utilities/Spinner/Spinner";
 import ContributerItem from "../ContributerItem/ContributerItem";
 import "./base.scss";
 import axios from "axios";
+import { API_URL } from "../../../utilities/customfunctions";
 
 const ContributersContainer = (props) => {
   const updateContributer = (data) => {
@@ -12,8 +13,8 @@ const ContributersContainer = (props) => {
     };
 
     axios
-      .put(`/guild-vault-contributers/${data.id}`, bodyParameters)
-      .then((response) => {
+      .put(`${API_URL}/guild-vault-contributers/${data.id}`, bodyParameters)
+      .then(() => {
         props.getAllContributes();
       })
       .catch((error) => {

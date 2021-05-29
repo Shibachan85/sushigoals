@@ -38,7 +38,7 @@ const LoginModal = (props) => {
 
     const bodyParameters = {
       identifier: state.username,
-      password: state.username,
+      password: state.password,
     };
 
     const credentials = {

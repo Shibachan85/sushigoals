@@ -43,6 +43,8 @@ export const LANTERN_COORDS = [
   { x: 689, y: 434, size: 3, delay: 1 },
 ];
 
+export const BREAD_CRUMBS_COORDS = [{ x: 1340, y: 418, size: 3, delay: 5 }];
+
 export const INTERVAL_VALUE = {
   first: 100,
   second: 250,

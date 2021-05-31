@@ -4,6 +4,11 @@
   top: 23%;
   width: 380px;
   height: 430px;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: mountFlask 0.35s ease-out;
+  animation-fill-mode: forwards;
+  animation-delay: 0.15s;
 
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -18,5 +23,16 @@
     right: 0;
     top: 0;
     margin-top: 35px;
+  }
+}
+
+@keyframes mountFlask {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

@@ -37,7 +37,7 @@ export const LANTERN_COORDS = [
   { x: 613, y: 456, size: 7, delay: 3.5 },
   { x: 751, y: 454, size: 7, delay: 3 },
   { x: 630, y: 446, size: 7, delay: 2.5 },
-  { x: 712, y: 436, size: 7, delay: 2.2 },
+  { x: 713, y: 434, size: 3, delay: 2.2 },
   { x: 641, y: 433, size: 3, delay: 2 },
   { x: 660, y: 436, size: 3, delay: 1.5 },
   { x: 689, y: 434, size: 3, delay: 1 },

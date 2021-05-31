@@ -150,7 +150,7 @@ const ContentArea = (props) => {
       !newAchievement && setCurrentGold(sushiFortune.gold);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.data, currentGold]);
+  }, [props.data]);
 
   return (
     <div className={"contentArea"}>

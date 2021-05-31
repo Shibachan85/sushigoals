@@ -3,7 +3,7 @@ import "./base.scss";
 const Footer = () => {
   return (
     <div className={"footer"}>
-      <p>sushi.io © 2021</p>
+      <p>sushiguild.eu © 2021</p>
     </div>
   );
 };

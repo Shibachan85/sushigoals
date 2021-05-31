@@ -14,7 +14,6 @@ const DonationForm = (props) => {
 
   const handleClick = useCallback(
     (e) => {
-      e.stopPropagation();
       if (!refNode.current.contains(e.target)) {
         setUnmount(true);
         setTimeout(() => {
@@ -43,7 +42,12 @@ const DonationForm = (props) => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+
+    if (name === "gold" && value < 0) {
+      value = 0;
+    }
+
     setState({ ...state, [name]: value });
     invalid && setInvalid(false);
     completed && setCompleted(false);

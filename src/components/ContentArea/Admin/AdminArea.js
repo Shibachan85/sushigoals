@@ -18,7 +18,8 @@ const AdminArea = (props) => {
         setUnmount(true);
         setTimeout(() => {
           dispatch(actions.logout(types.LOGOUT));
-          sessionStorage.setItem("GET", "false");
+          //sessionStorage.setItem("GET", "false");
+          sessionStorage.removeItem("access_token");
           setUnmount(false);
           setTimeout(() => {}, 1000);
         }, 500);

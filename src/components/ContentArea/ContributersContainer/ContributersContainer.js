@@ -12,8 +12,19 @@ const ContributersContainer = (props) => {
       gold: data.gold,
     };
 
+    const token = JSON.parse(sessionStorage.getItem("access_token"));
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     axios
-      .put(`${API_URL}/guild-vault-contributers/${data.id}`, bodyParameters)
+      .put(
+        `${API_URL}/guild-vault-contributers/${data.id}`,
+        bodyParameters,
+        config
+      )
       .then(() => {
         props.getAllContributes();
       })

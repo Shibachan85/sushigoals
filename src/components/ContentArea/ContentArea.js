@@ -18,6 +18,7 @@ const ContentArea = (props) => {
   const [closeDonationWithAnimation, setCloseDonationWithAnimation] =
     useState(false);
   const currentUser = useCurrentUser();
+  const { getAllContributes } = props;
   const isAuthed = currentUser.isAuthed;
 
   const checkUnlocks = (highestCrossedInterval, currentAchievement) => {
@@ -31,49 +32,6 @@ const ContentArea = (props) => {
     return highestCrossedInterval;
   };
 
-  const checkIfNewAchievement = (
-    oldGold,
-    newGold,
-    numberOfUnlocks,
-    isAchievementPost
-  ) => {
-    if (isAchievementPost) {
-      return false;
-    } else if (
-      (oldGold < INTERVAL_GOLD.first && newGold > INTERVAL_GOLD.first) ||
-      newGold === INTERVAL_GOLD.first
-    ) {
-      return checkUnlocks(1, numberOfUnlocks);
-    } else if (
-      (oldGold < INTERVAL_GOLD.second && newGold > INTERVAL_GOLD.second) ||
-      newGold === INTERVAL_GOLD.second
-    ) {
-      return checkUnlocks(2, numberOfUnlocks);
-    } else if (
-      (oldGold < INTERVAL_GOLD.third && newGold > INTERVAL_GOLD.third) ||
-      newGold === INTERVAL_GOLD.third
-    ) {
-      return checkUnlocks(3, numberOfUnlocks);
-    } else if (
-      (oldGold < INTERVAL_GOLD.fourth && newGold > INTERVAL_GOLD.fourth) ||
-      newGold === INTERVAL_GOLD.fourth
-    ) {
-      return checkUnlocks(4, numberOfUnlocks);
-    } else if (
-      (oldGold < INTERVAL_GOLD.fifth && newGold > INTERVAL_GOLD.fifth) ||
-      newGold === INTERVAL_GOLD.fifth
-    ) {
-      return checkUnlocks(5, numberOfUnlocks);
-    } else if (
-      (oldGold < INTERVAL_GOLD.sixth && newGold > INTERVAL_GOLD.sixth) ||
-      newGold === INTERVAL_GOLD.sixth
-    ) {
-      return checkUnlocks(6, numberOfUnlocks);
-    } else {
-      return false;
-    }
-  };
-
   const addDonationAchievement = useCallback(
     (newAchievement, gold, repeat) => {
       const achievement = {
@@ -85,11 +43,18 @@ const ContentArea = (props) => {
         isAchievement: achievement.isAchievement,
       };
 
+      const token = JSON.parse(sessionStorage.getItem("access_token"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
       axios
-        .post(API_URL + "/guild-vault-contributers", bodyParameters)
+        .post(API_URL + "/guild-vault-contributers", bodyParameters, config)
         .then(() => {
           setCurrentGold(gold);
-          props.getAllContributes();
+          getAllContributes();
           if (repeat) {
             addDonationAchievement(currentGold);
           }
@@ -97,8 +62,64 @@ const ContentArea = (props) => {
         .catch((error) => {
           console.error("FAILED TO SET ACHIEVEMENT");
         });
+
+      // HTTPONLY
+      // axios
+      //   .post(API_URL + "/guild-vault-contributers", bodyParameters)
+      //   .then(() => {
+      //     setCurrentGold(gold);
+      //     props.getAllContributes();
+      //     if (repeat) {
+      //       addDonationAchievement(currentGold);
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.error("FAILED TO SET ACHIEVEMENT");
+      //   });
     },
-    [props, currentGold]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentGold]
+  );
+
+  const checkIfNewAchievement = useCallback(
+    (oldGold, newGold, numberOfUnlocks, isAchievementPost) => {
+      if (isAchievementPost) {
+        return false;
+      } else if (
+        (oldGold < INTERVAL_GOLD.first && newGold > INTERVAL_GOLD.first) ||
+        newGold === INTERVAL_GOLD.first
+      ) {
+        return checkUnlocks(1, numberOfUnlocks);
+      } else if (
+        (oldGold < INTERVAL_GOLD.second && newGold > INTERVAL_GOLD.second) ||
+        newGold === INTERVAL_GOLD.second
+      ) {
+        return checkUnlocks(2, numberOfUnlocks);
+      } else if (
+        (oldGold < INTERVAL_GOLD.third && newGold > INTERVAL_GOLD.third) ||
+        newGold === INTERVAL_GOLD.third
+      ) {
+        return checkUnlocks(3, numberOfUnlocks);
+      } else if (
+        (oldGold < INTERVAL_GOLD.fourth && newGold > INTERVAL_GOLD.fourth) ||
+        newGold === INTERVAL_GOLD.fourth
+      ) {
+        return checkUnlocks(4, numberOfUnlocks);
+      } else if (
+        (oldGold < INTERVAL_GOLD.fifth && newGold > INTERVAL_GOLD.fifth) ||
+        newGold === INTERVAL_GOLD.fifth
+      ) {
+        return checkUnlocks(5, numberOfUnlocks);
+      } else if (
+        (oldGold < INTERVAL_GOLD.sixth && newGold > INTERVAL_GOLD.sixth) ||
+        newGold === INTERVAL_GOLD.sixth
+      ) {
+        return checkUnlocks(6, numberOfUnlocks);
+      } else {
+        return false;
+      }
+    },
+    []
   );
 
   useEffect(() => {
@@ -106,7 +127,7 @@ const ContentArea = (props) => {
       const sushiFortune = props.data.reduce(
         (acc, cur) => {
           return {
-            gold: acc.gold + cur.gold,
+            gold: cur.isAchievement ? acc.gold : acc.gold + cur.gold,
             numberOfUnlocks: cur.isAchievement
               ? acc.numberOfUnlocks + 1
               : acc.numberOfUnlocks,
@@ -128,7 +149,8 @@ const ContentArea = (props) => {
       }
       !newAchievement && setCurrentGold(sushiFortune.gold);
     }
-  }, [props.data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.data, currentGold]);
 
   return (
     <div className={"contentArea"}>

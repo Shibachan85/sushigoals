@@ -41,15 +41,20 @@ const LoginModal = (props) => {
       password: state.password,
     };
 
-    const credentials = {
-      credentials: "include",
-    };
+    // const credentials = {
+    //   credentials: "include",
+    // };
+    //.post(API_URL + "/auth/local", bodyParameters, credentials)
 
     axios
-      .post(API_URL + "/auth/local", bodyParameters, credentials)
+      .post(API_URL + "/auth/local", bodyParameters)
       .then((response) => {
         dispatch(actions.login(types.LOGIN, response.data));
-        sessionStorage.setItem("GET", "true");
+        //sessionStorage.setItem("GET", "true");
+        sessionStorage.setItem(
+          "access_token",
+          JSON.stringify(response.data.jwt)
+        );
       })
       .catch((error) => {
         setInvalid(true);

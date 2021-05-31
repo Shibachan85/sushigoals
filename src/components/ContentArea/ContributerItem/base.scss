@@ -14,22 +14,44 @@
     }
   }
 
-  .contributer__closeBtn {
-    border: 1px solid rgba(255, 255, 255, 0.356);
+  .authedInput:hover {
+    cursor: pointer;
     color: rgba(255, 255, 255, 0.356);
-    margin-left: 20px;
-    border-radius: 3px;
-    padding: 0px 8px 0px 8px;
+  }
+
+  .contributerBtnContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    span {
-      transform: translateY(-12.5%);
+
+    .contributer__btn {
+      border: 1px solid rgba(255, 255, 255, 0.356);
+      color: rgba(255, 255, 255, 0.356);
+      margin-left: 20px;
+      border-radius: 3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        border-color: white;
+        color: white;
+        cursor: pointer;
+      }
     }
-    &:hover {
-      border-color: white;
-      color: white;
-      cursor: pointer;
+
+    .contributer__closeBtn {
+      padding: 0px 8px 0px 8px;
+      span {
+        font-size: 16px;
+        transform: translateY(-12.5%);
+      }
+    }
+
+    .contributer__applyBtn {
+      padding: 0px 5px 0px 5px;
+      span {
+        font-size: 14px;
+        transform: translateY(-8.5%);
+      }
     }
   }
 }

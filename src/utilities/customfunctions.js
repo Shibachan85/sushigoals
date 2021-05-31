@@ -6,7 +6,12 @@ export const LINE_HEIGHT = 4;
 export const X_MODIFIER = 1536;
 export const Y_MODIFIER = 720;
 export const MOBILE_WIDTH = 640;
-export const API_URL = process.env.REACT_APP_API_URL;
+
+//const DEV = "http://localhost:1337";
+// const PREP = "PREP";
+const PROD = process.env.REACT_APP_API_URL;
+
+export const API_URL = PROD;
 const SCREEN_WIDTH = window.screen.width;
 
 export const deviceIsMobile = () => {

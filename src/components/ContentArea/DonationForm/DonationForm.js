@@ -14,6 +14,7 @@ const DonationForm = (props) => {
 
   const handleClick = useCallback(
     (e) => {
+      e.stopPropagation();
       if (!refNode.current.contains(e.target)) {
         setUnmount(true);
         setTimeout(() => {
@@ -56,8 +57,15 @@ const DonationForm = (props) => {
       isAchievement: false,
     };
 
+    const token = JSON.parse(sessionStorage.getItem("access_token"));
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     axios
-      .post(API_URL + "/guild-vault-contributers", bodyParameters)
+      .post(API_URL + "/guild-vault-contributers", bodyParameters, config)
       .then(() => {
         setSuccess(true);
         setCompleted(true);
@@ -71,12 +79,12 @@ const DonationForm = (props) => {
 
   return (
     <div
+      ref={refNode}
       className={classnames(
         "donationContainer",
         { donationMount: !unmount },
         { donationUnmount: unmount }
       )}
-      ref={refNode}
     >
       <form onSubmit={handleSubmit}>
         <label>

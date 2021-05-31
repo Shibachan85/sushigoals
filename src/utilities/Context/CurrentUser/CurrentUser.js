@@ -21,12 +21,26 @@ const reducer = (state, action) => {
 export const CurrentUserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, { isAuthed: false });
 
+  // For HttpOnly cookies remove all headers with tokens and configs
+
   useEffect(() => {
-    const canGetUser = JSON.parse(sessionStorage.getItem("GET"));
-    if (canGetUser) {
+    //const canGetUser = JSON.parse(sessionStorage.getItem("GET"));
+
+    if (state.isAuthed) {
+      return;
+    }
+
+    const token = JSON.parse(sessionStorage.getItem("access_token"));
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    if (token) {
       const getUser = () => {
         axios
-          .get(API_URL + "/users/me")
+          .get(API_URL + "/users/me", config)
           .then((response) => {
             dispatch(actions.login(types.LOGIN, response.user));
           })
@@ -38,6 +52,7 @@ export const CurrentUserProvider = ({ children }) => {
       getUser();
     }
   }, [state.isAuthed]);
+
   return (
     <CurrentUserDispatchContext.Provider value={dispatch}>
       <CurrentUserStateContext.Provider value={state}>

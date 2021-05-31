@@ -11,7 +11,6 @@ const ContributerItem = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setState({ ...state, [name]: value });
   };
 
@@ -19,6 +18,14 @@ const ContributerItem = (props) => {
     const multiplier = isText ? 6 : 7.5;
     const width = `${(value.length + 1) * multiplier}px`;
     return width;
+  };
+
+  const handleCancel = () => {
+    setState({
+      characterName: props.content.name,
+      gold: props.content.gold,
+    });
+    setIsEditing(false);
   };
 
   const handleSubmit = (e) => {
@@ -51,7 +58,9 @@ const ContributerItem = (props) => {
         </div>
       ) : (
         <div
-          className={"contributer__userContent"}
+          className={classnames("contributer__userContent", {
+            authedInput: props.isAuthed,
+          })}
           onClick={() => props.isAuthed && setIsEditing(true)}
         >
           {isEditing ? (
@@ -75,7 +84,7 @@ const ContributerItem = (props) => {
                 name={"gold"}
                 value={state.gold}
                 onChange={handleChange}
-                style={{ width: setInputWidth(state.gold, false) }}
+                style={{ width: setInputWidth(state.gold.toString(), false) }}
               />
             </form>
           ) : (
@@ -85,12 +94,20 @@ const ContributerItem = (props) => {
         </div>
       )}
       {isEditing && (
-        <button
-          onClick={() => setIsEditing(false)}
-          className={"contributer__closeBtn"}
-        >
-          <span>x</span>
-        </button>
+        <div className={"contributerBtnContainer"}>
+          <button
+            onClick={handleCancel}
+            className={"contributer__btn contributer__closeBtn"}
+          >
+            <span>x</span>
+          </button>
+          <button
+            onClick={handleSubmit}
+            className={"contributer__btn contributer__applyBtn"}
+          >
+            <span>✓</span>
+          </button>
+        </div>
       )}
     </div>
   );

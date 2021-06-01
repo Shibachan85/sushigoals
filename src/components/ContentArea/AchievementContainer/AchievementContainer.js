@@ -111,7 +111,7 @@ const AchievementContainer = (props) => {
         <Achievement
           key={key + INTERVAL_GOLD[key]}
           bottom={setLevel(INTERVAL_GOLD[key], LINE_ADJUSTMENT[key])}
-          amount={INTERVAL_GOLD[key]}
+          amount={INTERVAL_VALUE[key]}
           title={INTERVAL_TITLE[key]}
           currentGold={props.currentGold}
           goldTarget={INTERVAL_GOLD[key]}

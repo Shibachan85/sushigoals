@@ -15,6 +15,7 @@ const Main = () => {
   const [isMobile, setIsMobile] = useState(deviceIsMobile());
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
+  const [currentGold, setCurrentGold] = useState(-1);
 
   // const markup = useCallback(
   //   (count) => {
@@ -39,11 +40,17 @@ const Main = () => {
       });
   };
 
+  const goldCollector = (data) => {
+    const sushiFortune = data.reduce((acc, cur) => acc + cur.gold, 0);
+    return sushiFortune;
+  };
+
   useEffect(() => {
     axios
       .get(API_URL + "/guild-vault-contributers")
       .then((response) => {
         setData(response.data);
+        setCurrentGold(goldCollector(response.data));
         setIsPending(false);
       })
       .catch((err) => {
@@ -90,6 +97,7 @@ const Main = () => {
         data={data}
         isPending={isPending}
         getAllContributes={getAllContributes}
+        currentGold={currentGold}
       />
       <Background isMobile={isMobile} />
       <Footer />

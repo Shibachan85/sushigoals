@@ -21,26 +21,28 @@ const ContentArea = (props) => {
   const { getAllContributes } = props;
   const isAuthed = currentUser.isAuthed;
 
-  const checkUnlocks = (highestCrossedInterval, currentAchievement) => {
-    if (highestCrossedInterval - 1 > currentAchievement) {
-      const unlocks = {
-        newUnlock: currentAchievement + 1,
-        remainingUnlocks: highestCrossedInterval - currentAchievement,
-      };
-      return unlocks;
-    }
-    return highestCrossedInterval;
-  };
+  // const checkUnlocks = (highestCrossedInterval, currentAchievement) => {
+  //   if (highestCrossedInterval - 1 > currentAchievement) {
+  //     const unlocks = {
+  //       newUnlock: currentAchievement + 1,
+  //       remainingUnlocks: highestCrossedInterval - currentAchievement,
+  //     };
+  //     return unlocks;
+  //   }
+  //   return highestCrossedInterval;
+  // };
 
   const addDonationAchievement = useCallback(
-    (newAchievement, gold, repeat) => {
+    (newAchievement, gold) => {
       const achievement = {
         title: `Congratulations! You unlocked tab ${newAchievement}!`,
         isAchievement: true,
+        gold: 0,
       };
       const bodyParameters = {
         name: achievement.title,
         isAchievement: achievement.isAchievement,
+        gold: achievement.gold,
       };
 
       const token = JSON.parse(sessionStorage.getItem("access_token"));
@@ -55,9 +57,6 @@ const ContentArea = (props) => {
         .then(() => {
           setCurrentGold(gold);
           getAllContributes();
-          if (repeat) {
-            addDonationAchievement(currentGold);
-          }
         })
         .catch((error) => {
           console.error("FAILED TO SET ACHIEVEMENT");
@@ -82,65 +81,78 @@ const ContentArea = (props) => {
   );
 
   const checkIfNewAchievement = useCallback(
-    (oldGold, newGold, numberOfUnlocks, isAchievementPost) => {
-      if (isAchievementPost) {
+    (oldGold, newGold, isAchievementPost) => {
+      if (isAchievementPost || props.currentGold === -1) {
         return false;
       } else if (
         (oldGold < INTERVAL_GOLD.first && newGold > INTERVAL_GOLD.first) ||
         newGold === INTERVAL_GOLD.first
       ) {
-        return checkUnlocks(1, numberOfUnlocks);
+        //return checkUnlocks(1, numberOfUnlocks);
+        return 1;
       } else if (
         (oldGold < INTERVAL_GOLD.second && newGold > INTERVAL_GOLD.second) ||
         newGold === INTERVAL_GOLD.second
       ) {
-        return checkUnlocks(2, numberOfUnlocks);
+        //return checkUnlocks(2, numberOfUnlocks);
+        return 2;
       } else if (
         (oldGold < INTERVAL_GOLD.third && newGold > INTERVAL_GOLD.third) ||
         newGold === INTERVAL_GOLD.third
       ) {
-        return checkUnlocks(3, numberOfUnlocks);
+        //return checkUnlocks(3, numberOfUnlocks);
+        return 3;
       } else if (
         (oldGold < INTERVAL_GOLD.fourth && newGold > INTERVAL_GOLD.fourth) ||
         newGold === INTERVAL_GOLD.fourth
       ) {
-        return checkUnlocks(4, numberOfUnlocks);
+        //return checkUnlocks(4, numberOfUnlocks);
+        return 4;
       } else if (
         (oldGold < INTERVAL_GOLD.fifth && newGold > INTERVAL_GOLD.fifth) ||
         newGold === INTERVAL_GOLD.fifth
       ) {
-        return checkUnlocks(5, numberOfUnlocks);
+        //return checkUnlocks(5, numberOfUnlocks);
+        return 5;
       } else if (
         (oldGold < INTERVAL_GOLD.sixth && newGold > INTERVAL_GOLD.sixth) ||
         newGold === INTERVAL_GOLD.sixth
       ) {
-        return checkUnlocks(6, numberOfUnlocks);
+        //return checkUnlocks(6, numberOfUnlocks);
+        return 6;
       } else {
         return false;
       }
     },
-    []
+    [props.currentGold]
   );
 
   useEffect(() => {
     if (props.data.length > 0) {
+      // const sushiFortune = props.data.reduce(
+      //   (acc, cur) => {
+      //     return {
+      //       gold: cur.isAchievement ? acc.gold : acc.gold + cur.gold,
+      //       numberOfUnlocks: cur.isAchievement
+      //         ? acc.numberOfUnlocks + 1
+      //         : acc.numberOfUnlocks,
+      //     };
+      //   },
+      //   { gold: 0, numberOfUnlocks: 0 }
+
       const sushiFortune = props.data.reduce(
         (acc, cur) => {
           return {
             gold: cur.isAchievement ? acc.gold : acc.gold + cur.gold,
-            numberOfUnlocks: cur.isAchievement
-              ? acc.numberOfUnlocks + 1
-              : acc.numberOfUnlocks,
           };
         },
-        { gold: 0, numberOfUnlocks: 0 }
+        { gold: 0 }
       );
 
       const isAchievementPost = props.data[props.data.length - 1].isAchievement;
       const newAchievement = checkIfNewAchievement(
         currentGold,
         sushiFortune.gold,
-        sushiFortune.numberOfUnlocks,
         isAchievementPost
       );
 

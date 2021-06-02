@@ -4,7 +4,6 @@ import bottle_outline from "../../../resources/images/potion_vial/bottle_outline
 import bottle_top from "../../../resources/images/potion_vial/bottle_top.png";
 import cork from "../../../resources/images/potion_vial/cork.png";
 import reflection_bottom from "../../../resources/images/potion_vial/reflection_bottom.png";
-import reflection_circles from "../../../resources/images/potion_vial/reflection_circles.png";
 import reflection_top from "../../../resources/images/potion_vial/reflection_top.png";
 import PotionContent from "../PotionContent/PotionContent";
 
@@ -16,7 +15,7 @@ const OPACITY = {
   bottle_top: 0.5,
   bottle_outline: 1,
   reflection_top: 0.75,
-  reflection_circles: 0.75,
+  reflection_circles: 0.6,
   content: 0.75,
 };
 
@@ -69,11 +68,13 @@ const Potion = (props) => {
         src={reflection_top}
         alt={"potion"}
       />
-      <img
-        className={"potionReflectionCircles"}
+      <div
+        className={"potionReflectionCircles_base potionReflectionCircles_small"}
         style={{ opacity: OPACITY.reflection_circles }}
-        src={reflection_circles}
-        alt={"potion"}
+      />
+      <div
+        className={"potionReflectionCircles_base potionReflectionCircles_large"}
+        style={{ opacity: OPACITY.reflection_circles }}
       />
     </div>
   );

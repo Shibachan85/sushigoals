@@ -9,11 +9,15 @@
     color: white;
     padding-bottom: 4px;
 
-    opacity: 0.8;
+    opacity: 0;
+    animation: mountingAchievementText 1s;
+    animation-fill-mode: forwards;
   }
 
   .completedText {
-    opacity: 1;
+    animation: mountingAchievementTextCompleted 1s;
+    animation-fill-mode: forwards;
+    opacity: 0;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
       1px 1px 0 #000;
   }
@@ -21,13 +25,16 @@
   .achievementLine {
     position: absolute;
     //top: 50px;
-    right: 100px;
+    left: 0px;
     width: 282px;
     height: 4px;
+    transform-origin: right;
     background-color: white;
     border-radius: 2px;
-
+    transform: scaleX(0);
     opacity: 0.25;
+    animation: mountingAchievementLines 1s;
+    animation-fill-mode: forwards;
 
     -webkit-box-shadow: #fff 0 -1px 4px, #ff0 0 -2px 10px, #ff8000 0 -10px 20px,
       red 0 -18px 40px, 5px 5px 15px 5px rgba(0, 0, 0, 0);
@@ -38,6 +45,8 @@
   .completedLine {
     background-color: lime;
     opacity: 0.65;
+    animation: mountingAchievementLines 1s;
+    animation-fill-mode: forwards;
 
     -webkit-box-shadow: rgba(255, 255, 255, 0.75) 0 -1px 4px,
       rgba(255, 255, 0, 0.75) 0 -2px 10px, #ff8000b9 0 -10px 20px,
@@ -45,5 +54,32 @@
     box-shadow: rgba(255, 255, 255, 0.75) 0 -1px 4px,
       rgba(255, 255, 0, 0.75) 0 -2px 10px, #ff8000b6 0 -10px 20px,
       rgba(255, 0, 0, 0.75) 0 -18px 40px, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes mountingAchievementLines {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes mountingAchievementText {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+
+@keyframes mountingAchievementTextCompleted {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

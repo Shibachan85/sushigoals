@@ -106,6 +106,8 @@ const AchievementContainer = (props) => {
 
   const generateGoals = () => {
     const goals = [];
+    let count = 0;
+
     for (const key in INTERVAL_GOLD) {
       goals.push(
         <Achievement
@@ -115,8 +117,11 @@ const AchievementContainer = (props) => {
           title={INTERVAL_TITLE[key]}
           currentGold={props.currentGold}
           goldTarget={INTERVAL_GOLD[key]}
+          animationDelay={0.2 * count}
+          widthMultiplier={282 * (0.525 + 0.08 * count)}
         />
       );
+      count++;
     }
     return goals;
   };

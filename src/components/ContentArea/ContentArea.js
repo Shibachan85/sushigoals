@@ -10,6 +10,7 @@ import DonationForm from "./DonationForm/DonationForm";
 import { useCurrentUser } from "../../utilities/Context/CurrentUser/CurrentUser";
 import { INTERVAL_GOLD, API_URL } from "../../utilities/customfunctions";
 import axios from "axios";
+import MiniGames from "./MiniGames/MiniGames";
 
 const ContentArea = (props) => {
   const [currentGold, setCurrentGold] = useState(0);
@@ -197,6 +198,7 @@ const ContentArea = (props) => {
           close={closeDonationWithAnimation}
         />
       )}
+      {!props.isMobile && <MiniGames />}
     </div>
   );
 };

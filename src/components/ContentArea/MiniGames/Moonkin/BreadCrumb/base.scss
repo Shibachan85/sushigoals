@@ -1,0 +1,49 @@
+// .bread {
+//   background-color: #fff;
+//   box-shadow: 0 0 40px 20px #fff, 0 0 100px 50px #ff0;
+// }
+
+.breadCrumbs {
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  background-color: white;
+  opacity: 0;
+  transform: scale(0.2);
+  border-radius: 50%;
+
+  box-shadow: 0 0 40px 20px #fff, 0 0 100px 50px #ff0;
+  -webkit-box-shadow: 0 0 40px 20px #fff, 0 0 100px 50px #ff0;
+  -moz-box-shadow: 0 0 40px 20px #fff, 0 0 100px 50px #ff0;
+
+  animation: crumbFlash cubic-bezier(0.42, 0.58, 0.69, 1.05) infinite;
+  animation-delay: 2s;
+  animation-duration: 7.5s;
+}
+
+@keyframes crumbFlash {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  1% {
+    opacity: 0.5;
+    transform: scale(0.4);
+  }
+  2% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  3% {
+    opacity: 0.5;
+    transform: scale(0.6);
+  }
+  10% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+}

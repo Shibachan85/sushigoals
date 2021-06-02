@@ -4,6 +4,32 @@
   position: absolute;
   right: 0;
   top: 0;
+
+  .potionReflectionCircles_base {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    z-index: 10;
+    filter: sepia(50%) saturate(1);
+    -webkit-filter: sepia(50%) saturate(1);
+  }
+
+  .potionReflectionCircles_large {
+    top: 218px;
+    left: 22px;
+    width: 59px;
+    height: 38px;
+    transform: rotate(111deg);
+  }
+
+  .potionReflectionCircles_small {
+    top: 172px;
+    left: 60px;
+    width: 39px;
+    height: 25px;
+    transform: rotate(135deg);
+  }
+
   img {
     width: 100%;
     position: absolute;

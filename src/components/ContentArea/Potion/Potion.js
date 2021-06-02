@@ -16,6 +16,7 @@ const OPACITY = {
   bottle_outline: 1,
   reflection_top: 0.75,
   reflection_circles: 0.6,
+  reflection_bottle_right: 0.4,
   content: 0.75,
 };
 
@@ -75,6 +76,10 @@ const Potion = (props) => {
       <div
         className={"potionReflectionCircles_base potionReflectionCircles_large"}
         style={{ opacity: OPACITY.reflection_circles }}
+      />
+      <div
+        className={"potionReflectionRightLine"}
+        style={{ opacity: OPACITY.reflection_bottle_right }}
       />
     </div>
   );

@@ -98,6 +98,7 @@ const DonationForm = (props) => {
             name={"characterName"}
             value={state.characterName}
             onChange={handleChange}
+            required
           />
         </label>
         <label>
@@ -107,6 +108,7 @@ const DonationForm = (props) => {
             name={"gold"}
             value={state.gold}
             onChange={handleChange}
+            required
           />
         </label>
         {invalid && <p>Invalid credentials</p>}

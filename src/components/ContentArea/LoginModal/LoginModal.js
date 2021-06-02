@@ -87,6 +87,7 @@ const LoginModal = (props) => {
             name={"username"}
             value={state.username}
             onChange={handleChange}
+            required
           />
         </label>
         <label>
@@ -96,6 +97,7 @@ const LoginModal = (props) => {
             name={"password"}
             value={state.password}
             onChange={handleChange}
+            required
           />
         </label>
         {invalid && <p>Invalid credentials</p>}

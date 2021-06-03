@@ -1,9 +1,9 @@
-import Moonkin from "./Moonkin/Moonkin";
+import MoonkinContainer from "./MoonkinContainer/MoonkinContainer";
 
 const MiniGames = () => {
   return (
     <>
-      <Moonkin />
+      <MoonkinContainer />
     </>
   );
 };

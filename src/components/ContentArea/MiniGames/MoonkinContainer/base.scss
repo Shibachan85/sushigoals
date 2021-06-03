@@ -1,0 +1,11 @@
+.crumbContainer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px;
+  &:hover {
+    cursor: pointer;
+  }
+  transform: translate(-50%, -50%);
+}

@@ -9,3 +9,10 @@
   }
   transform: translate(-50%, -50%);
 }
+
+.noHover {
+  &:hover {
+    cursor: default;
+  }
+  pointer-events: none;
+}

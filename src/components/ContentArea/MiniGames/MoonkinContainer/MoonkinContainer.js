@@ -10,6 +10,11 @@ import Moonkin from "./Moonkin/Moonkin";
 import { useEffect, useState } from "react";
 import { X_MODIFIER, Y_MODIFIER } from "../../../../utilities/customfunctions";
 import HoverModal from "./HoverModal/HoverModal";
+import Kitty from "./Kitty/Kitty";
+import classnames from "classnames";
+
+let interval = null;
+let timeout = null;
 
 const hoverModalData = [
   { x: 1200, y: 338, msg: "Bread crumbs..." },
@@ -21,9 +26,14 @@ const hoverModalData = [
   { x: 1200, y: 330, msg: "Whatever IT is..." },
   { x: 1170, y: 440, msg: "Let's place a new bread there" },
   { x: 1240, y: 440, msg: "Try clicking it" },
+  { x: 1334, y: 300, msg: "*Rattle rattle*" },
+  { x: 1280, y: 275, msg: "*Rattle rattle*" },
 ];
 
-const moonkinChatBoxData = [{ x: 1290, y: 220, msg: "Nom! Bred!" }];
+const moonkinChatBoxData = [
+  { x: 1290, y: 210, msg: "Nom! Bred!" },
+  { x: 13, y: 463, msg: "I can smell a chimkin!" },
+];
 
 const moonkin = [
   {
@@ -52,7 +62,13 @@ const MoonkinContainer = () => {
   const [state, setState] = useState(moonkin[0]);
   const [crumbsClicked, setCrumbsClicked] = useState(false);
   const [showHoverModal, setShowHoverModal] = useState(false);
+  const [spawnMoonkin, setSpawnMoonkin] = useState(false);
   const [hoverIteration, setHoverIteration] = useState(0);
+  const [showIntroNarrater, setShowIntroNarrater] = useState(true);
+  const [spawnKitty, setSpawnKitty] = useState(false);
+  const [chatBoxIteration, setChatBoxIteration] = useState(0);
+  const [showChatBox, setShowChatBox] = useState(false);
+  const [noHover, setNoHover] = useState(false);
 
   const percentifyCoord = (coord, modifier) => {
     return (coord / modifier) * 100;
@@ -63,53 +79,219 @@ const MoonkinContainer = () => {
     top: `${percentifyCoord(BREAD_CRUMBS_COORDS[0].y, Y_MODIFIER)}%`,
   };
 
-  useEffect(() => {
-    let index = 0;
-    let interval = setInterval(() => {
-      setState(moonkin[index]);
-      setTimeout(() => {
-        setState(moonkin[index + 1]);
-      }, 8500);
-    }, 10000);
+  const runInterval = (startIndex, arr, intervalTime, timeoutTime) => {
+    interval = setInterval(() => {
+      setState(arr[startIndex]);
+      timeout = setTimeout(() => {
+        setState(arr[startIndex + 1]);
+      }, timeoutTime);
+    }, intervalTime);
+  };
 
+  useEffect(() => {
     return () => {
-      clearInterval(interval);
+      clearAll();
     };
   }, []);
+
+  const clearAll = () => {
+    clearInterval(interval);
+    clearTimeout(timeout);
+  };
+
+  const wait = (time) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, time);
+    });
+  };
+
+  const handleClick = () => {
+    setNoHover(true);
+    setShowIntroNarrater(false);
+    wait(2000)
+      .then(() => {
+        setShowIntroNarrater(true);
+        setShowHoverModal(true);
+        setHoverIteration(9);
+        return wait(2000);
+      })
+      .then(() => {
+        setShowIntroNarrater(false);
+        return wait(1500);
+      })
+      .then(() => {
+        setShowIntroNarrater(true);
+        setHoverIteration(10);
+        return wait(1500);
+      })
+      .then(() => {
+        setShowHoverModal(false);
+        return wait(1500);
+      })
+      .then(() => {
+        setCrumbsClicked(true);
+        return wait(2000);
+      })
+      .then(() => {
+        setSpawnMoonkin(true);
+        return wait(2000);
+      })
+      .then(() => {
+        setState(moonkin[1]);
+        setShowIntroNarrater(false);
+        return wait(1000);
+      })
+      .then(() => {
+        setState(moonkin[0]);
+        return wait(2000);
+      })
+      .then(() => {
+        clearAll();
+        setShowIntroNarrater(false);
+        return wait(250);
+      })
+      .then(() => {
+        setState(moonkin[2]);
+        return wait(250);
+      })
+      .then(() => {
+        // Sit down
+        setState(moonkin[2]);
+        return wait(2000);
+      })
+      .then(() => {
+        // eating
+        runInterval(3, moonkin, 250, 100);
+        return wait(3000);
+      })
+      .then(() => {
+        // pausing
+        clearAll();
+        return wait(250);
+      })
+      .then(() => {
+        // pausing
+        setState(moonkin[2]);
+        return wait(2000);
+      })
+      .then(() => {
+        // eating
+        runInterval(3, moonkin, 250, 100);
+        return wait(3000);
+      })
+      .then(() => {
+        // stopping
+        clearAll();
+        return wait(250);
+      })
+      .then(() => {
+        // stopped eating
+        setState(moonkin[2]);
+        return wait(2000);
+      })
+      .then(() => {
+        // pausing
+        setState(moonkin[0]);
+        return wait(3500);
+      })
+      .then(() => {
+        // pausing
+        setState(moonkin[1]);
+        return wait(1500);
+      })
+      .then(() => {
+        // pausing
+        setState(moonkin[0]);
+        return wait(6500);
+      })
+      .then(() => {
+        // pausing
+        setState(moonkin[1]);
+        return wait(2000);
+      })
+      .then(() => {
+        // pausing
+        setState(moonkin[0]);
+        return wait(6000);
+      })
+      .then(() => {
+        // despawn
+        setSpawnMoonkin(false);
+        return wait(1000);
+      })
+      .then(() => {
+        // Spawn kitty
+        setSpawnKitty(true);
+        return wait(3000);
+      })
+      .then(() => {
+        // Kitty chatbox
+        setChatBoxIteration(1);
+        setShowChatBox(true);
+        setShowIntroNarrater(true);
+        return wait(3000);
+      })
+      .then(() => {
+        // prepare to despawn
+        setShowChatBox(false);
+        setShowIntroNarrater(false);
+        return wait(2000);
+      })
+      .then(() => {
+        // Kitty despawn
+        setSpawnKitty(false);
+        return wait(10000);
+      })
+      .then(() => {
+        setSpawnMoonkin(true);
+        runInterval(0, moonkin, 10000, 8500);
+        return wait(300000);
+      })
+      .then(() => {
+        clearAll();
+        setSpawnMoonkin(false);
+      });
+  };
 
   return (
     <>
       {" "}
       <div
-        className={"crumbContainer"}
+        className={classnames("crumbContainer", { noHover: noHover })}
         style={style}
-        {...(!crumbsClicked && { onMouseEnter: () => setShowHoverModal(true) })}
-        {...(!crumbsClicked && {
-          onMouseLeave: () => {
-            setShowHoverModal(false);
-            hoverIteration < hoverModalData.length - 1 &&
-              setHoverIteration(hoverIteration + 1);
-          },
-        })}
-        {...(hoverIteration === hoverModalData.length - 1 && {
-          onClick: () => setCrumbsClicked(true),
+        {...(!crumbsClicked &&
+          hoverIteration < 9 && {
+            onMouseEnter: () => setShowHoverModal(true),
+          })}
+        {...(!crumbsClicked &&
+          hoverIteration < 9 && {
+            onMouseLeave: () => {
+              setShowHoverModal(false);
+              hoverIteration < 8 && setHoverIteration(hoverIteration + 1);
+            },
+          })}
+        {...(hoverIteration === 8 && {
+          onClick: handleClick,
         })}
       >
         {BREAD_CRUMBS_COORDS.map((crumbs, index) => (
           <BreadCrumb key={crumbs.x + "key" + index} crumbs={crumbs} />
         ))}
       </div>
-      {(showHoverModal || crumbsClicked) && (
-        <HoverModal
-          data={
-            crumbsClicked
-              ? moonkinChatBoxData[0]
-              : hoverModalData[hoverIteration]
-          }
-          showMoonkinChatBox={crumbsClicked}
-        />
-      )}
-      {crumbsClicked && <Moonkin moonkin={state} />}
+      {(showHoverModal || crumbsClicked || showChatBox) &&
+        showIntroNarrater && (
+          <HoverModal
+            data={
+              crumbsClicked
+                ? moonkinChatBoxData[chatBoxIteration]
+                : hoverModalData[hoverIteration]
+            }
+            crumbsClicked={crumbsClicked}
+            showChatBox={showChatBox}
+          />
+        )}
+      {spawnMoonkin && <Moonkin moonkin={state} />}
+      {spawnKitty && <Kitty />}
     </>
   );
 };

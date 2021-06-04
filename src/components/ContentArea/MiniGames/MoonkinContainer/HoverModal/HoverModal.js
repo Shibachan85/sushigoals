@@ -9,15 +9,14 @@ const HoverModal = (props) => {
   const [state, setState] = useState(false);
 
   useEffect(() => {
-    if (props.showMoonkinChatBox) {
-      setTimeout(() => {
-        setState(true);
-        setTimeout(() => {
-          setState(false);
-        }, 2000);
-      }, 3500);
-    }
-  }, [props.showMoonkinChatBox]);
+    setState(true);
+    // if (props.crumbsClicked) {
+    //   //setState(true);
+    //   setTimeout(() => {
+    //     setState(true);
+    //   }, 2000);
+    // }
+  }, [props.crumbsClicked]);
 
   const percentifyCoord = (coord, modifier) => {
     return (coord / modifier) * 100;
@@ -28,11 +27,9 @@ const HoverModal = (props) => {
     top: `${percentifyCoord(props.data.y, Y_MODIFIER)}%`,
   };
 
-  console.log(style);
-
   return (
     <>
-      {props.showMoonkinChatBox ? (
+      {props.crumbsClicked || props.showChatBox ? (
         state ? (
           <div className={"moonkinChatBox"} style={style}>
             <p>{props.data.msg}</p>

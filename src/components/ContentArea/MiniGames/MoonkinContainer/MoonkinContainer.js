@@ -357,6 +357,12 @@ const MoonkinContainer = () => {
           setSpawnKitty(false);
         }, 750);
         return wait(3000);
+      })
+      .then(() => {
+        // despawn all modal and reset
+        setCrumbsClicked(false);
+        setShowChatBox(false);
+        setShowIntroNarrater(false);
       });
   };
 

@@ -6,4 +6,45 @@
   img {
     width: 80px;
   }
+
+  @media only screen and (max-width: 4100px) {
+    left: 9%;
+    img {
+      width: 110px;
+    }
+  }
+
+  @media only screen and (max-width: 1600px) {
+    left: 10%;
+    img {
+      width: 80px;
+    }
+  }
 }
+
+.unmountKitty {
+  animation: unmountingKitty 1s ease-in;
+}
+
+@keyframes unmountingKitty {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+// html, body {margin:0; width:1920px; height:1080px; font-size:16px;}
+// @media (-webkit-min-device-pixel-ratio:1.5) { body {zoom:.66666667} }
+// @media (min-device-pixel-ratio:1.5)         { body {zoom:.66666667} }
+// @media (min-resolution:1.5dppx)             { body {zoom:.66666667} }
+// @media (-webkit-min-device-pixel-ratio:2)   { body {zoom:.5} }
+// @media (min-device-pixel-ratio:2)           { body {zoom:.5} }
+// @media (min-resolution:2dppx)               { body {zoom:.5} }
+// @media (-webkit-min-device-pixel-ratio:3)   { body {zoom:.33333333} }
+// @media (min-device-pixel-ratio:3)           { body {zoom:.33333333} }
+// @media (min-resolution:3dppx)               { body {zoom:.33333333} }
+// @media (-webkit-min-device-pixel-ratio:4)   { body {zoom:.25} }
+// @media (min-device-pixel-ratio:4)           { body {zoom:.25} }
+// @media (min-resolution:4dppx)               { body {zoom:.25} }

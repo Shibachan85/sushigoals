@@ -1,8 +1,8 @@
 .moonkinContainer__moonkin {
   position: absolute;
-  right: 3%;
-  top: 32%;
-  width: 120px;
+  // right: 3%;
+  // top: 32%;
+  //width: 120px;
 
   img {
     position: absolute;
@@ -25,4 +25,19 @@
   //   .moonkin_eating_2 {
   //     top: 27px;
   //   }
+}
+
+.moonkin__image {
+  position: absolute;
+  width: 120px;
+  bottom: 45%;
+  right: 3.25%;
+
+  @media only screen and (max-width: 4100px) {
+    width: 170px;
+  }
+
+  @media only screen and (max-width: 1600px) {
+    width: 120px;
+  }
 }

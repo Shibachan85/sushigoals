@@ -11,3 +11,24 @@ p {
 body {
   overflow: overlay;
 }
+
+html {
+  background-color: black;
+}
+
+.shakeIt {
+  overflow: hidden;
+  animation: shakeScreen 0.2s;
+}
+
+@keyframes shakeScreen {
+  0% {
+    transform: translateY(0%);
+  }
+  50% {
+    transform: translateY(2%);
+  }
+  100% {
+    transform: translateY(-0.5%);
+  }
+}

@@ -10,12 +10,6 @@ const HoverModal = (props) => {
 
   useEffect(() => {
     setState(true);
-    // if (props.crumbsClicked) {
-    //   //setState(true);
-    //   setTimeout(() => {
-    //     setState(true);
-    //   }, 2000);
-    // }
   }, [props.crumbsClicked]);
 
   const percentifyCoord = (coord, modifier) => {
@@ -25,6 +19,7 @@ const HoverModal = (props) => {
   const style = {
     left: `${percentifyCoord(props.data.x, X_MODIFIER)}%`,
     top: `${percentifyCoord(props.data.y, Y_MODIFIER)}%`,
+    ...(props.data.transform && { transform: props.data.transform }),
   };
 
   return (

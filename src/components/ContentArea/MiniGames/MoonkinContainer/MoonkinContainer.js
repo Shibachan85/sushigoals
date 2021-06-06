@@ -12,6 +12,7 @@ import { X_MODIFIER, Y_MODIFIER } from "../../../../utilities/customfunctions";
 import HoverModal from "./HoverModal/HoverModal";
 import Kitty from "./Kitty/Kitty";
 import classnames from "classnames";
+const html = document.querySelector("html");
 
 let interval = null;
 let timeout = null;
@@ -26,14 +27,22 @@ const hoverModalData = [
   { x: 1200, y: 330, msg: "Whatever IT is..." },
   { x: 1170, y: 440, msg: "Let's place a new bread there" },
   { x: 1240, y: 440, msg: "Try clicking it" },
-  { x: 1334, y: 300, msg: "*Rattle rattle*" },
-  { x: 1280, y: 275, msg: "*Rattle rattle*" },
+  // { x: 1334, y: 300, msg: "*Rattle rattle*" },
+  // { x: 1280, y: 275, msg: "*Rattle rattle*" },
+  { x: 175, y: 613, msg: "*Rattle rattle*" },
+  { x: 72, y: 510, msg: "*Rattle rattle*" },
+  { x: 110, y: 435, msg: "A wild Muzi appeared" },
 ];
 
 const moonkinChatBoxData = [
   { x: 1290, y: 210, msg: "Nom! Bred!" },
-  { x: 13, y: 463, msg: "I can smell a chimkin!" },
+  { x: 60, y: 463, msg: "I smell chimkin..." },
+  { x: 65, y: 450, msg: "Gib chimkin! >:3" },
+  { x: 60, y: 459, msg: "Oooo a hörb!!!" },
+  { x: 220, y: 457, msg: "wwwwwwwwwwwwwwwwwwwwww", transform: "scaleX(-1)" },
 ];
+
+const moonkinPosition = { x: 1376, y: 230, width: 120 };
 
 const moonkin = [
   {
@@ -69,6 +78,7 @@ const MoonkinContainer = () => {
   const [chatBoxIteration, setChatBoxIteration] = useState(0);
   const [showChatBox, setShowChatBox] = useState(false);
   const [noHover, setNoHover] = useState(false);
+  const [unmountKitty, setUnmountKitty] = useState(false);
 
   const percentifyCoord = (coord, modifier) => {
     return (coord / modifier) * 100;
@@ -78,6 +88,13 @@ const MoonkinContainer = () => {
     left: `${percentifyCoord(BREAD_CRUMBS_COORDS[0].x, X_MODIFIER)}%`,
     top: `${percentifyCoord(BREAD_CRUMBS_COORDS[0].y, Y_MODIFIER)}%`,
   };
+
+  // const moonkinStyle = {
+  //   right: "3%",
+  //   //left: `${percentifyCoord(moonkinPosition.x, X_MODIFIER)}%`,
+  //   //top: `${percentifyCoord(moonkinPosition.y, Y_MODIFIER)}%`,
+  //   //width: `${percentifyCoord(moonkinPosition.width, X_MODIFIER)}%`,
+  // };
 
   const runInterval = (startIndex, arr, intervalTime, timeoutTime) => {
     interval = setInterval(() => {
@@ -108,47 +125,103 @@ const MoonkinContainer = () => {
   const handleClick = () => {
     setNoHover(true);
     setShowIntroNarrater(false);
-    wait(2000)
+    //wait(2000)
+    wait(3000)
+      // .then(() => {
+      //   //setShowIntroNarrater(true);
+      //   //setShowHoverModal(true);
+      //   //setHoverIteration(9);
+      //   return wait(2000);
+      // })
+      // .then(() => {
+      //   //setShowIntroNarrater(false);
+      //   return wait(1500);
+      // })
+      // .then(() => {
+      //   //setShowIntroNarrater(true);
+      //   //setHoverIteration(10);
+      //   return wait(1500);
+      // })
+      // .then(() => {
+      //   //setShowHoverModal(false);
+      //   return wait(1500);
+      // })
       .then(() => {
+        html.classList.add("shakeIt");
+        return wait(1000);
+      })
+      .then(() => {
+        html.classList.remove("shakeIt");
+        return wait(1000);
+      })
+      .then(() => {
+        html.classList.add("shakeIt");
+        return wait(1000);
+      })
+      .then(() => {
+        html.classList.remove("shakeIt");
+        return wait(1000);
+      })
+      .then(() => {
+        html.classList.add("shakeIt");
+        return wait(1000);
+      })
+      .then(() => {
+        html.classList.remove("shakeIt");
+        return wait(500);
+      })
+      .then(() => {
+        html.classList.add("shakeIt");
+        return wait(500);
+      })
+      .then(() => {
+        html.classList.remove("shakeIt");
+        return wait(100);
+      })
+      .then(() => {
+        html.classList.add("shakeIt");
+        return wait(100);
+      })
+      .then(() => {
+        html.classList.remove("shakeIt");
+        return wait(50);
+      })
+      .then(() => {
+        html.classList.add("shakeIt");
+        return wait(100);
+      })
+      .then(() => {
+        html.classList.remove("shakeIt");
+        return wait(100);
+      })
+      .then(() => {
+        html.classList.add("shakeIt");
+        return wait(100);
+      })
+      .then(() => {
+        html.classList.remove("shakeIt");
         setShowIntroNarrater(true);
-        setShowHoverModal(true);
-        setHoverIteration(9);
         return wait(2000);
-      })
-      .then(() => {
-        setShowIntroNarrater(false);
-        return wait(1500);
-      })
-      .then(() => {
-        setShowIntroNarrater(true);
-        setHoverIteration(10);
-        return wait(1500);
-      })
-      .then(() => {
-        setShowHoverModal(false);
-        return wait(1500);
       })
       .then(() => {
         setCrumbsClicked(true);
-        return wait(2000);
+        return wait(1500);
       })
       .then(() => {
         setSpawnMoonkin(true);
-        return wait(2000);
+        return wait(1000);
       })
       .then(() => {
-        setState(moonkin[1]);
         setShowIntroNarrater(false);
         return wait(1000);
       })
       .then(() => {
-        setState(moonkin[0]);
-        return wait(2000);
+        setState(moonkin[1]);
+        return wait(1000);
       })
       .then(() => {
-        clearAll();
-        setShowIntroNarrater(false);
-        return wait(250);
+        setState(moonkin[0]);
+        return wait(1500);
       })
       .then(() => {
         setState(moonkin[2]);
@@ -157,7 +230,7 @@ const MoonkinContainer = () => {
       .then(() => {
         // Sit down
         setState(moonkin[2]);
-        return wait(2000);
+        return wait(1000);
       })
       .then(() => {
         // eating
@@ -202,44 +275,92 @@ const MoonkinContainer = () => {
       .then(() => {
         // pausing
         setState(moonkin[0]);
-        return wait(6500);
-      })
-      .then(() => {
-        // pausing
-        setState(moonkin[1]);
         return wait(2000);
-      })
-      .then(() => {
-        // pausing
-        setState(moonkin[0]);
-        return wait(6000);
       })
       .then(() => {
         // despawn
         setSpawnMoonkin(false);
-        return wait(1000);
+        setCrumbsClicked(false);
+        return wait(4000);
+      })
+      .then(() => {
+        setShowIntroNarrater(true);
+        setShowHoverModal(true);
+        setHoverIteration(9);
+        return wait(2000);
+      })
+      .then(() => {
+        setShowIntroNarrater(false);
+        return wait(1500);
+      })
+      .then(() => {
+        setShowIntroNarrater(true);
+        setHoverIteration(10);
+        return wait(1500);
+      })
+      .then(() => {
+        setShowIntroNarrater(false);
+        return wait(1500);
+      })
+      .then(() => {
+        setShowIntroNarrater(true);
+        setHoverIteration(11);
+        return wait(1500);
       })
       .then(() => {
         // Spawn kitty
         setSpawnKitty(true);
-        return wait(3000);
+        return wait(1000);
       })
       .then(() => {
+        setShowIntroNarrater(false);
+        return wait(1500);
+      })
+      .then(() => {
+        setCrumbsClicked(true);
         // Kitty chatbox
         setChatBoxIteration(1);
         setShowChatBox(true);
         setShowIntroNarrater(true);
-        return wait(3000);
-      })
-      .then(() => {
-        // prepare to despawn
-        setShowChatBox(false);
-        setShowIntroNarrater(false);
         return wait(2000);
       })
       .then(() => {
-        // Kitty despawn
-        setSpawnKitty(false);
+        setShowIntroNarrater(false);
+        return wait(1000);
+      })
+      .then(() => {
+        setChatBoxIteration(2);
+        setShowIntroNarrater(true);
+        return wait(2000);
+      })
+      .then(() => {
+        setShowIntroNarrater(false);
+        return wait(1000);
+      })
+      .then(() => {
+        setChatBoxIteration(3);
+        setShowIntroNarrater(true);
+        return wait(1800);
+      })
+      .then(() => {
+        setShowIntroNarrater(false);
+        return wait(500);
+      })
+      .then(() => {
+        setChatBoxIteration(4);
+        setShowIntroNarrater(true);
+        // kitty despawn
+        setUnmountKitty(true);
+        setTimeout(() => {
+          setSpawnKitty(false);
+        }, 900);
+        return wait(3500);
+      })
+      .then(() => {
+        // despawn all modal and reset
+        setCrumbsClicked(false);
+        setShowChatBox(false);
+        setShowIntroNarrater(false);
         return wait(10000);
       })
       .then(() => {
@@ -290,8 +411,12 @@ const MoonkinContainer = () => {
             showChatBox={showChatBox}
           />
         )}
-      {spawnMoonkin && <Moonkin moonkin={state} />}
-      {spawnKitty && <Kitty />}
+      {spawnMoonkin && (
+        <Moonkin
+          moonkin={state} //style={moonkinStyle}
+        />
+      )}
+      {spawnKitty && <Kitty unmountKitty={unmountKitty} />}
     </>
   );
 };

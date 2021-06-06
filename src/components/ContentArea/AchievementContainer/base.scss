@@ -1,3 +1,7 @@
+:root {
+  --scale: 1;
+}
+
 .achievementContainer {
   position: absolute;
   right: 25%;
@@ -5,7 +9,7 @@
   width: 380px;
   height: 430px;
   opacity: 0;
-  transform: scale(0.5);
+
   animation: mountFlask 0.35s ease-out;
   animation-fill-mode: forwards;
   animation-delay: 0.15s;
@@ -17,38 +21,36 @@
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
 
+  @media only screen and (max-width: 4100px) {
+    --scale: 1.2;
+    top: 30%;
+    right: 27%;
+  }
+
+  @media only screen and (max-width: 1600px) {
+    --scale: 1;
+    top: 23%;
+    right: 26%;
+  }
+
   @media only screen and (max-width: 640px) {
+    --scale: 0.75;
     position: relative;
-    //transform: scale(0.75);
     right: 0;
     top: 0;
     margin-top: 35px;
-    opacity: 0;
-    transform: scale(0.25);
-    animation: mountFlaskMobile 0.35s ease-out;
-    animation-fill-mode: forwards;
-    animation-delay: 0.15s;
   }
+
+  transform: scale(calc(var(--scale) / 2));
 }
 
 @keyframes mountFlask {
   from {
     opacity: 0;
-    transform: scale(0.5);
+    transform: scale(calc(var(--scale) / 2));
   }
   to {
     opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes mountFlaskMobile {
-  from {
-    opacity: 0;
-    transform: scale(0.25);
-  }
-  to {
-    opacity: 1;
-    transform: scale(0.75);
+    transform: scale(var(--scale));
   }
 }

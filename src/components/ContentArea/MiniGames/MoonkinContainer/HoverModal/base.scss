@@ -1,0 +1,96 @@
+.hoverModal {
+  position: absolute;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  border: 1px solid black;
+  background-color: rgb(255, 255, 255);
+  color: black;
+  pointer-events: none;
+}
+
+.moonkinChatBox {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  border: 1px solid black;
+  background-color: rgb(255, 255, 255);
+  color: black;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.moonkinChatBox::before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 9px;
+  bottom: -14px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid black;
+  transform: rotate(-45deg);
+}
+
+.moonkinChatBox::after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 10px;
+  bottom: -10px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid white;
+  z-index: 1002;
+  transform: scaleX(-1) rotate(45deg);
+}
+
+// .box1 {
+//   width: 300px;
+//   margin: 50px auto;
+//   border: 4px solid #00bfb6;
+//   padding: 20px;
+//   text-align: center;
+//   font-weight: 900;
+//   color: #00bfb6;
+//   font-family: arial;
+//   position: relative;
+// }
+
+// /* speech bubble 8 */
+
+// .sb8:before {
+//   content: "";
+//   width: 0px;
+//   height: 0px;
+//   position: absolute;
+//   border-left: 10px solid transparent;
+//   border-right: 10px solid #00bfb6;
+//   border-top: 10px solid #00bfb6;
+//   border-bottom: 10px solid transparent;
+//   right: 20px;
+//   bottom: -23px;
+// }
+
+// .sb8:after {
+//   content: "";
+//   width: 0px;
+//   height: 0px;
+//   position: absolute;
+//   border-left: 10px solid transparent;
+//   border-right: 10px solid #fff;
+//   border-top: 10px solid #fff;
+//   border-bottom: 10px solid transparent;
+//   right: 24px;
+//   bottom: -13px;
+// }

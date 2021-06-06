@@ -7,7 +7,7 @@ export const X_MODIFIER = 1536;
 export const Y_MODIFIER = 720;
 export const MOBILE_WIDTH = 640;
 
-// const DEV = "http://localhost:1337";
+//const DEV = "http://localhost:1337";
 // const PREP = "PREP";
 const PROD = process.env.REACT_APP_API_URL;
 
@@ -42,6 +42,8 @@ export const LANTERN_COORDS = [
   { x: 660, y: 436, size: 3, delay: 1.5 },
   { x: 689, y: 434, size: 3, delay: 1 },
 ];
+
+export const BREAD_CRUMBS_COORDS = [{ x: 1340, y: 418, size: 3, delay: 5 }];
 
 export const INTERVAL_VALUE = {
   first: 100,

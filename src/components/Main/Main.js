@@ -57,7 +57,8 @@ const Main = () => {
         console.error(err);
       });
   }, []);
-  //const [coords, setCoords] = useState({ x: 0, y: 0 });
+
+  // const [coords, setCoords] = useState({ x: 0, y: 0 });
 
   // function getCursorPosition(canvas, event) {
   //   const rect = canvas.getBoundingClientRect();
@@ -66,10 +67,12 @@ const Main = () => {
   //   setCoords({ x, y });
   // }
 
-  // const canvas = document.querySelector("body");
-  // canvas.addEventListener("mousedown", function (e) {
-  //   getCursorPosition(canvas, e);
-  // });
+  // useEffect(() => {
+  //   const canvas = document.querySelector("body");
+  //   canvas.addEventListener("mousedown", function (e) {
+  //     getCursorPosition(canvas, e);
+  //   });
+  // }, []);
 
   useEffect(() => {
     window.onresize = () => {
@@ -91,6 +94,15 @@ const Main = () => {
 
   return (
     <div className={"main"}>
+      {/* <div
+        style={{
+          position: "absolute",
+          top: "0",
+          left: "0",
+          color: "white",
+          backgroundColor: "black",
+        }}
+      >{`X: ${coords.x} Y: ${coords.y}`}</div> */}
       <Header />
       <ContentArea
         isMobile={isMobile}

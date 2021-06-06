@@ -30,6 +30,16 @@
     transform: rotate(135deg);
   }
 
+  .potionReflectionRightLine {
+    background-color: rgb(107, 90, 76);
+    position: absolute;
+    top: 202px;
+    right: 8px;
+    width: 3px;
+    height: 187px;
+    border-radius: 50%;
+  }
+
   img {
     width: 100%;
     position: absolute;

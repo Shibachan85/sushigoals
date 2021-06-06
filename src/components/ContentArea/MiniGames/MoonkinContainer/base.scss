@@ -1,0 +1,18 @@
+.crumbContainer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px;
+  &:hover {
+    cursor: pointer;
+  }
+  transform: translate(-50%, -50%);
+}
+
+.noHover {
+  &:hover {
+    cursor: default;
+  }
+  pointer-events: none;
+}

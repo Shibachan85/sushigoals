@@ -1,11 +1,11 @@
 import { BREAD_CRUMBS_COORDS } from "../../../../utilities/customfunctions";
 import "./base.scss";
 import BreadCrumb from "./BreadCrumb/BreadCrumb";
-import Moonkin_Standing_Straight from "../../../../resources/images/moonkin/mk_standing_straight.png";
-import Moonkin_Standing_Looking_Right from "../../../../resources/images/moonkin/mk_standing_looking_right.png";
-import Moonkin_Sitting_Straight from "../../../../resources/images/moonkin/mk_sitting_straight.png";
-import Moonkin_Sitting_Eating_1 from "../../../../resources/images/moonkin/mk_sitting_eating_1.png";
-import Moonkin_Sitting_Eating_2 from "../../../../resources/images/moonkin/mk_sitting_eating_2.png";
+import Moonkin_Standing_Straight from "../../../../resources/images/moonkin/small/mk_standing_straight_small.png";
+import Moonkin_Standing_Looking_Right from "../../../../resources/images/moonkin/small/mk_standing_looking_right_small.png";
+import Moonkin_Sitting_Straight from "../../../../resources/images/moonkin/small/mk_sitting_straight_small.png";
+import Moonkin_Sitting_Eating_1 from "../../../../resources/images/moonkin/small/mk_sitting_eating_1_small.png";
+import Moonkin_Sitting_Eating_2 from "../../../../resources/images/moonkin/small/mk_sitting_eating_2_small.png";
 import Moonkin from "./Moonkin/Moonkin";
 import { useEffect, useState } from "react";
 import { X_MODIFIER, Y_MODIFIER } from "../../../../utilities/customfunctions";
@@ -42,8 +42,6 @@ const moonkinChatBoxData = [
   { x: 220, y: 457, msg: "wwwwwwwwwwwwwwwwwwwwww", transform: "scaleX(-1)" },
 ];
 
-const moonkinPosition = { x: 1376, y: 230, width: 120 };
-
 const moonkin = [
   {
     classname: "moonkin_standing_straight",
@@ -79,6 +77,7 @@ const MoonkinContainer = () => {
   const [showChatBox, setShowChatBox] = useState(false);
   const [noHover, setNoHover] = useState(false);
   const [unmountKitty, setUnmountKitty] = useState(false);
+  const [unmountMoonkin, setUnmountMoonkin] = useState(false);
 
   const percentifyCoord = (coord, modifier) => {
     return (coord / modifier) * 100;
@@ -279,8 +278,11 @@ const MoonkinContainer = () => {
       })
       .then(() => {
         // despawn
-        setSpawnMoonkin(false);
         setCrumbsClicked(false);
+        setUnmountMoonkin(true);
+        setTimeout(() => {
+          setSpawnMoonkin(false);
+        }, 500);
         return wait(4000);
       })
       .then(() => {
@@ -314,7 +316,7 @@ const MoonkinContainer = () => {
       })
       .then(() => {
         setShowIntroNarrater(false);
-        return wait(1500);
+        return wait(3000);
       })
       .then(() => {
         setCrumbsClicked(true);
@@ -335,12 +337,12 @@ const MoonkinContainer = () => {
       })
       .then(() => {
         setShowIntroNarrater(false);
-        return wait(1000);
+        return wait(3000);
       })
       .then(() => {
         setChatBoxIteration(3);
         setShowIntroNarrater(true);
-        return wait(1800);
+        return wait(2000);
       })
       .then(() => {
         setShowIntroNarrater(false);
@@ -353,24 +355,8 @@ const MoonkinContainer = () => {
         setUnmountKitty(true);
         setTimeout(() => {
           setSpawnKitty(false);
-        }, 900);
-        return wait(3500);
-      })
-      .then(() => {
-        // despawn all modal and reset
-        setCrumbsClicked(false);
-        setShowChatBox(false);
-        setShowIntroNarrater(false);
-        return wait(10000);
-      })
-      .then(() => {
-        setSpawnMoonkin(true);
-        runInterval(0, moonkin, 10000, 8500);
-        return wait(300000);
-      })
-      .then(() => {
-        clearAll();
-        setSpawnMoonkin(false);
+        }, 750);
+        return wait(3000);
       });
   };
 
@@ -414,6 +400,7 @@ const MoonkinContainer = () => {
       {spawnMoonkin && (
         <Moonkin
           moonkin={state} //style={moonkinStyle}
+          unmountMoonkin={unmountMoonkin}
         />
       )}
       {spawnKitty && <Kitty unmountKitty={unmountKitty} />}

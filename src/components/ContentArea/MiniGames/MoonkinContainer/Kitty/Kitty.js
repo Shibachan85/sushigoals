@@ -1,5 +1,5 @@
 import "./base.scss";
-import KittyCat from "../../../../../resources/images/kitty.png";
+import KittyCat from "../../../../../resources/images/kitty_small.png";
 import classnames from "classnames";
 
 const Kitty = (props) => {

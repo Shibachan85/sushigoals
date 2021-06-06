@@ -58,21 +58,21 @@ const Main = () => {
       });
   }, []);
 
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
+  // const [coords, setCoords] = useState({ x: 0, y: 0 });
 
-  function getCursorPosition(canvas, event) {
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    setCoords({ x, y });
-  }
+  // function getCursorPosition(canvas, event) {
+  //   const rect = canvas.getBoundingClientRect();
+  //   const x = event.clientX - rect.left;
+  //   const y = event.clientY - rect.top;
+  //   setCoords({ x, y });
+  // }
 
-  useEffect(() => {
-    const canvas = document.querySelector("body");
-    canvas.addEventListener("mousedown", function (e) {
-      getCursorPosition(canvas, e);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const canvas = document.querySelector("body");
+  //   canvas.addEventListener("mousedown", function (e) {
+  //     getCursorPosition(canvas, e);
+  //   });
+  // }, []);
 
   useEffect(() => {
     window.onresize = () => {
@@ -94,7 +94,7 @@ const Main = () => {
 
   return (
     <div className={"main"}>
-      <div
+      {/* <div
         style={{
           position: "absolute",
           top: "0",
@@ -102,7 +102,7 @@ const Main = () => {
           color: "white",
           backgroundColor: "black",
         }}
-      >{`X: ${coords.x} Y: ${coords.y}`}</div>
+      >{`X: ${coords.x} Y: ${coords.y}`}</div> */}
       <Header />
       <ContentArea
         isMobile={isMobile}

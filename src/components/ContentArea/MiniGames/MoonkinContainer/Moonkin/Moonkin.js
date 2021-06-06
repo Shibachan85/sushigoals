@@ -1,9 +1,12 @@
 import "./base.scss";
+import classnames from "classnames";
 
 const Moonkin = (props) => {
   return (
     <img
-      className={"moonkin__image"}
+      className={classnames("moonkin__image", {
+        unmountMoonkin: props.unmountMoonkin,
+      })}
       //style={props.style}
       src={props.moonkin.image}
       alt={"moonkin"}

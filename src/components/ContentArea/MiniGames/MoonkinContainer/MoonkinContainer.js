@@ -144,27 +144,7 @@ const MoonkinContainer = () => {
   const handleClick = () => {
     setNoHover(true);
     setShowIntroNarrater(false);
-    //wait(2000)
     wait(3000)
-      // .then(() => {
-      //   //setShowIntroNarrater(true);
-      //   //setShowHoverModal(true);
-      //   //setHoverIteration(9);
-      //   return wait(2000);
-      // })
-      // .then(() => {
-      //   //setShowIntroNarrater(false);
-      //   return wait(1500);
-      // })
-      // .then(() => {
-      //   //setShowIntroNarrater(true);
-      //   //setHoverIteration(10);
-      //   return wait(1500);
-      // })
-      // .then(() => {
-      //   //setShowHoverModal(false);
-      //   return wait(1500);
-      // })
       .then(() => {
         html.classList.add("shakeIt");
         return wait(1000);
@@ -426,6 +406,20 @@ const MoonkinContainer = () => {
       )}
       {spawnKitty && (
         <Kitty unmountKitty={unmountKitty} kittyImgJSX={kittyImgJSX} />
+      )}
+      {noHover && (
+        <div className={"xHuyep__base"}>
+          <div>
+            <div>
+              {moonkinImgJSX.map((img, index) => (
+                <span key={index + "_dfwgr93kd"} className={"_cache"}>
+                  {img}
+                </span>
+              ))}
+              <span className={"_cache"}>{kittyImgJSX}</span>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

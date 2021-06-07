@@ -10,22 +10,54 @@ import {
   API_URL,
 } from "../../utilities/customfunctions";
 import axios from "axios";
+import LoadingPage from "./LoadingPage/LoadingPage";
+
+let timeout = null;
 
 const Main = () => {
   const [isMobile, setIsMobile] = useState(deviceIsMobile());
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
   const [currentGold, setCurrentGold] = useState(-1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadingState, setLoadingState] = useState({
+    background: false,
+    logo: false,
+    cork: false,
+    body: false,
+    reflection_bottom: false,
+    bottle_top: false,
+    bottle_outline: false,
+    bottle_outline_right: false,
+    reflection_top: false,
+  });
+  const [showAchievement, setShowAchievement] = useState(false);
 
-  // const markup = useCallback(
-  //   (count) => {
-  //     const stringCountCorrection = count + 1;
-  //     return (
-  //       // Some markup that references the sections prop
-  //     );
-  //   },
-  //   [count, /* and any other dependencies the react linter suggests */]
-  // );
+  useEffect(() => {
+    const result = Object.values(loadingState).includes(false);
+    if (!result) {
+      let min = 3;
+      let currentTime = 0;
+      const interval = 400; // ms
+      let expected = Date.now() + interval;
+      timeout = setTimeout(step, interval);
+      function step() {
+        var dt = Date.now() - expected; // the drift (positive for overshooting)
+        if (dt > interval) {
+          // something really bad happened. Maybe the browser (tab) was inactive?
+          // possibly special handling to avoid futile "catch up" run
+        }
+        if (currentTime >= min) {
+          setIsLoading(result);
+        }
+
+        currentTime++;
+
+        expected += interval;
+        setTimeout(step, Math.max(0, interval - dt)); // take into account drift
+      }
+    }
+  }, [loadingState]);
 
   const getAllContributes = () => {
     !isPending && setIsPending(true);
@@ -75,6 +107,14 @@ const Main = () => {
   // }, []);
 
   useEffect(() => {
+    !isLoading && setShowAchievement(true);
+  }, [isLoading]);
+
+  useEffect(() => {
+    clearTimeout(timeout);
+  }, [showAchievement]);
+
+  useEffect(() => {
     window.onresize = () => {
       if (
         (window.innerWidth || document.documentElement.clientWidth) <
@@ -94,6 +134,7 @@ const Main = () => {
 
   return (
     <div className={"main"}>
+      {isLoading && <LoadingPage />}
       {/* <div
         style={{
           position: "absolute",
@@ -103,15 +144,23 @@ const Main = () => {
           backgroundColor: "black",
         }}
       >{`X: ${coords.x} Y: ${coords.y}`}</div> */}
-      <Header />
+      <Header loadingState={loadingState} setLoadingState={setLoadingState} />
       <ContentArea
         isMobile={isMobile}
         data={data}
         isPending={isPending}
         getAllContributes={getAllContributes}
         currentGold={currentGold}
+        loadingState={loadingState}
+        setLoadingState={setLoadingState}
+        isLoading={isLoading}
+        showAchievement={showAchievement}
       />
-      <Background isMobile={isMobile} />
+      <Background
+        loadingState={loadingState}
+        setLoadingState={setLoadingState}
+        isMobile={isMobile}
+      />
       <Footer />
     </div>
   );

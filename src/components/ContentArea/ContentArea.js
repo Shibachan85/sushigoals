@@ -178,6 +178,9 @@ const ContentArea = (props) => {
       <AchievementContainer
         currentGold={currentGold}
         setCurrentGold={setCurrentGold}
+        loadingState={props.loadingState}
+        setLoadingState={props.setLoadingState}
+        showAchievement={props.showAchievement}
       />
       <Summery currentGold={currentGold} isPending={props.isPending} />
       <ContributersContainer

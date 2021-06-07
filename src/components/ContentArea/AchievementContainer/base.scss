@@ -3,6 +3,7 @@
 }
 
 .achievementContainer {
+  display: none;
   position: absolute;
   right: 25%;
   top: 23%;
@@ -53,4 +54,8 @@
     opacity: 1;
     transform: scale(var(--scale));
   }
+}
+
+.showAchievement {
+  display: block;
 }

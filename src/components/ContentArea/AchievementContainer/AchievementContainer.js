@@ -14,6 +14,7 @@ import {
   POTION_PIXEL_TARGETS,
   MAX_GOLD_POTION_CAN_HOLD,
 } from "../../../utilities/customfunctions";
+import classNames from "classnames";
 
 const AchievementContainer = (props) => {
   const [currentHeight, setCurrentHeight] = useState(0);
@@ -139,9 +140,16 @@ const AchievementContainer = (props) => {
 
   return (
     <div
-      className={"achievementContainer"} //style={style}
+      className={classNames("achievementContainer", {
+        showAchievement: props.showAchievement,
+      })} //style={style}
     >
-      <Potion height={currentHeight} max={MAX_HEIGHT} />
+      <Potion
+        height={currentHeight}
+        max={MAX_HEIGHT}
+        loadingState={props.loadingState}
+        setLoadingState={props.setLoadingState}
+      />
       {generateGoals()}
     </div>
   );

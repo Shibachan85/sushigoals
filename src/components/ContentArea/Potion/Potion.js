@@ -21,6 +21,11 @@ const OPACITY = {
 };
 
 const Potion = (props) => {
+  const handleLoad = (e) => {
+    const { name } = e.target;
+    props.setLoadingState({ ...props.loadingState, [name]: true });
+  };
+
   return (
     <div className={"potionContainer"}>
       <PotionContent
@@ -29,44 +34,58 @@ const Potion = (props) => {
         opacity={OPACITY.content}
       />
       <img
+        name={"cork"}
         style={{ opacity: OPACITY.cork }}
         className={"potionCork"}
         src={cork}
+        onLoad={handleLoad}
         alt={"potion"}
       />
       <img
+        name={"body"}
         className={"potionBody"}
         style={{ opacity: OPACITY.body }}
         src={bottle_body}
+        onLoad={handleLoad}
         alt={"potion"}
       />
       <img
+        name={"reflection_bottom"}
         className={"potionReflectionBottom"}
         style={{ opacity: OPACITY.reflection_bottom }}
         src={reflection_bottom}
+        onLoad={handleLoad}
         alt={"potion"}
       />
       <img
+        name={"bottle_top"}
         style={{ opacity: OPACITY.bottle_top }}
         src={bottle_top}
+        onLoad={handleLoad}
         alt={"potion"}
       />
       <img
+        name={"bottle_outline"}
         className={"potionOutline"}
         style={{ opacity: OPACITY.bottle_outline }}
         src={bottle_outline}
+        onLoad={handleLoad}
         alt={"potion"}
       />
       <img
+        name={"bottle_outline_right"}
         className={"potionOutlineRight"}
         style={{ opacity: OPACITY.bottle_outline }}
         src={bottle_outline}
+        onLoad={handleLoad}
         alt={"potion"}
       />
       <img
+        name={"reflection_top"}
         className={"potionReflectionTop"}
         style={{ opacity: OPACITY.reflection_top }}
         src={reflection_top}
+        onLoad={handleLoad}
         alt={"potion"}
       />
       <div

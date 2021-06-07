@@ -6,6 +6,8 @@ import Moonkin_Standing_Looking_Right from "../../../../resources/images/moonkin
 import Moonkin_Sitting_Straight from "../../../../resources/images/moonkin/small/mk_sitting_straight_small.png";
 import Moonkin_Sitting_Eating_1 from "../../../../resources/images/moonkin/small/mk_sitting_eating_1_small.png";
 import Moonkin_Sitting_Eating_2 from "../../../../resources/images/moonkin/small/mk_sitting_eating_2_small.png";
+import KittyCat from "../../../../resources/images/kitty_small.png";
+
 import Moonkin from "./Moonkin/Moonkin";
 import { useEffect, useState } from "react";
 import { X_MODIFIER, Y_MODIFIER } from "../../../../utilities/customfunctions";
@@ -66,7 +68,7 @@ const moonkin = [
 ];
 
 const MoonkinContainer = () => {
-  const [state, setState] = useState(moonkin[0]);
+  const [state, setState] = useState([]);
   const [crumbsClicked, setCrumbsClicked] = useState(false);
   const [showHoverModal, setShowHoverModal] = useState(false);
   const [spawnMoonkin, setSpawnMoonkin] = useState(false);
@@ -78,6 +80,8 @@ const MoonkinContainer = () => {
   const [noHover, setNoHover] = useState(false);
   const [unmountKitty, setUnmountKitty] = useState(false);
   const [unmountMoonkin, setUnmountMoonkin] = useState(false);
+  const [moonkinImgJSX, setMoonkinImgJSX] = useState([]);
+  const [kittyImgJSX, setKittyImgJSX] = useState(null);
 
   const percentifyCoord = (coord, modifier) => {
     return (coord / modifier) * 100;
@@ -105,6 +109,22 @@ const MoonkinContainer = () => {
   };
 
   useEffect(() => {
+    const ImgEls = moonkin.map((image) => {
+      return (
+        <img
+          className={classnames("moonkin__image", {
+            unmountMoonkin: unmountMoonkin,
+          })}
+          //style={props.style}
+          src={image.image}
+          alt={"moonkin"}
+        />
+      );
+    });
+    const kittyEl = <img src={KittyCat} alt={"KittyCat"} />;
+    setKittyImgJSX(kittyEl);
+    setState(ImgEls[0]);
+    setMoonkinImgJSX(ImgEls);
     return () => {
       clearAll();
     };
@@ -124,27 +144,7 @@ const MoonkinContainer = () => {
   const handleClick = () => {
     setNoHover(true);
     setShowIntroNarrater(false);
-    //wait(2000)
     wait(3000)
-      // .then(() => {
-      //   //setShowIntroNarrater(true);
-      //   //setShowHoverModal(true);
-      //   //setHoverIteration(9);
-      //   return wait(2000);
-      // })
-      // .then(() => {
-      //   //setShowIntroNarrater(false);
-      //   return wait(1500);
-      // })
-      // .then(() => {
-      //   //setShowIntroNarrater(true);
-      //   //setHoverIteration(10);
-      //   return wait(1500);
-      // })
-      // .then(() => {
-      //   //setShowHoverModal(false);
-      //   return wait(1500);
-      // })
       .then(() => {
         html.classList.add("shakeIt");
         return wait(1000);
@@ -215,25 +215,21 @@ const MoonkinContainer = () => {
         return wait(1000);
       })
       .then(() => {
-        setState(moonkin[1]);
+        setState(moonkinImgJSX[1]);
         return wait(1000);
       })
       .then(() => {
-        setState(moonkin[0]);
+        setState(moonkinImgJSX[0]);
         return wait(1500);
       })
       .then(() => {
-        setState(moonkin[2]);
-        return wait(250);
-      })
-      .then(() => {
         // Sit down
-        setState(moonkin[2]);
-        return wait(1000);
+        setState(moonkinImgJSX[2]);
+        return wait(1250);
       })
       .then(() => {
         // eating
-        runInterval(3, moonkin, 250, 100);
+        runInterval(3, moonkinImgJSX, 250, 100);
         return wait(3000);
       })
       .then(() => {
@@ -243,12 +239,12 @@ const MoonkinContainer = () => {
       })
       .then(() => {
         // pausing
-        setState(moonkin[2]);
+        setState(moonkinImgJSX[2]);
         return wait(2000);
       })
       .then(() => {
         // eating
-        runInterval(3, moonkin, 250, 100);
+        runInterval(3, moonkinImgJSX, 250, 100);
         return wait(3000);
       })
       .then(() => {
@@ -258,22 +254,22 @@ const MoonkinContainer = () => {
       })
       .then(() => {
         // stopped eating
-        setState(moonkin[2]);
+        setState(moonkinImgJSX[2]);
         return wait(2000);
       })
       .then(() => {
         // pausing
-        setState(moonkin[0]);
+        setState(moonkinImgJSX[0]);
         return wait(3500);
       })
       .then(() => {
         // pausing
-        setState(moonkin[1]);
+        setState(moonkinImgJSX[1]);
         return wait(1500);
       })
       .then(() => {
         // pausing
-        setState(moonkin[0]);
+        setState(moonkinImgJSX[0]);
         return wait(2000);
       })
       .then(() => {
@@ -282,7 +278,7 @@ const MoonkinContainer = () => {
         setUnmountMoonkin(true);
         setTimeout(() => {
           setSpawnMoonkin(false);
-        }, 500);
+        }, 1000);
         return wait(4000);
       })
       .then(() => {
@@ -404,12 +400,27 @@ const MoonkinContainer = () => {
           />
         )}
       {spawnMoonkin && (
-        <Moonkin
-          moonkin={state} //style={moonkinStyle}
-          unmountMoonkin={unmountMoonkin}
-        />
+        <Moonkin spawnMoonkin={spawnMoonkin} unmountMoonkin={unmountMoonkin}>
+          {state}
+        </Moonkin>
       )}
-      {spawnKitty && <Kitty unmountKitty={unmountKitty} />}
+      {spawnKitty && (
+        <Kitty unmountKitty={unmountKitty} kittyImgJSX={kittyImgJSX} />
+      )}
+      {noHover && (
+        <div className={"xHuyep__base"}>
+          <div>
+            <div>
+              {moonkinImgJSX.map((img, index) => (
+                <span key={index + "_dfwgr93kd"} className={"_cache"}>
+                  {img}
+                </span>
+              ))}
+              <span className={"_cache"}>{kittyImgJSX}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

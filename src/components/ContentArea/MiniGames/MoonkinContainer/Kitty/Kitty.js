@@ -1,15 +1,14 @@
 import "./base.scss";
-import KittyCat from "../../../../../resources/images/kitty_small.png";
 import classnames from "classnames";
 
 const Kitty = (props) => {
   return (
     <div
-      className={classnames("kittyContainer", {
+      className={classnames("kittyContainer", "mount_kitty", {
         unmountKitty: props.unmountKitty,
       })}
     >
-      <img src={KittyCat} alt={"KittyCat"} />
+      {props.kittyImgJSX}
     </div>
   );
 };

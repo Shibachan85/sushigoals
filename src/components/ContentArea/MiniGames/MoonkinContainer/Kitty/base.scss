@@ -2,6 +2,7 @@
   position: absolute;
   left: 10%;
   bottom: 10%;
+  opacity: 0;
 
   img {
     width: 80px;
@@ -20,8 +21,9 @@
       width: 80px;
     }
   }
+}
 
-  opacity: 0;
+.mount_kitty {
   animation: kittyMounter 0.25s ease-out;
   animation-fill-mode: forwards;
 }

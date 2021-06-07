@@ -6,8 +6,13 @@ import HeaderLogo from "../../../resources/images/header_sushi_guild.png";
 const MOBILE_HEADER_STICKY_POSITION = 80;
 const RELATIVE_TOP = 10;
 
-const Header = () => {
+const Header = (props) => {
   const [isSticky, setIsSticky] = useState(true);
+
+  const handleLoad = (e) => {
+    const { name } = e.target;
+    props.setLoadingState({ ...props.loadingState, [name]: true });
+  };
 
   useEffect(() => {
     window.onscroll = () => {
@@ -36,7 +41,7 @@ const Header = () => {
 
   return (
     <div className={"siteHeader"} style={positionStyle}>
-      <img src={HeaderLogo} alt={"header"} />
+      <img name={"logo"} src={HeaderLogo} onLoad={handleLoad} alt={"header"} />
       <span className={"headerLine"} />
       <h3 className={"headerText"}>Vault achievement</h3>
     </div>

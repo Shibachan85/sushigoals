@@ -3,14 +3,13 @@ import classnames from "classnames";
 
 const Moonkin = (props) => {
   return (
-    <img
-      className={classnames("moonkin__image", {
-        unmountMoonkin: props.unmountMoonkin,
+    <div
+      className={classnames("moonkinContainer__moonkin", "mount_moonkin", {
+        unmount_moonkin: props.unmountMoonkin,
       })}
-      //style={props.style}
-      src={props.moonkin.image}
-      alt={"moonkin"}
-    />
+    >
+      {props.children}
+    </div>
   );
 };
 

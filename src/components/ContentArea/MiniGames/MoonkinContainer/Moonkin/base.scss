@@ -1,32 +1,30 @@
-// .moonkinContainer__moonkin {
-//   position: absolute;
-
-//   img {
-//     position: absolute;
-//     width: 100%;
-//   }
-// }
-
-.moonkin__image {
+.moonkinContainer__moonkin {
   position: absolute;
-  width: 120px;
+  width: fit-content;
   bottom: 45%;
   right: 3.25%;
   opacity: 0;
 
-  animation: mkmount 0.25s ease-out;
-  animation-fill-mode: forwards;
-
-  @media only screen and (max-width: 4100px) {
-    width: 170px;
-  }
-
-  @media only screen and (max-width: 1600px) {
+  img {
     width: 120px;
+
+    @media only screen and (max-width: 4100px) {
+      width: 170px;
+    }
+
+    @media only screen and (max-width: 1600px) {
+      width: 120px;
+    }
   }
 }
 
-.unmountMoonkin {
+.mount_moonkin {
+  transform-origin: bottom center;
+  animation: mkmount 0.25s ease-out;
+  animation-fill-mode: forwards;
+}
+
+.unmount_moonkin {
   transform-origin: bottom center;
   animation: mkunmount 0.25s ease-in;
   animation-fill-mode: forwards;
@@ -35,7 +33,7 @@
 @keyframes mkmount {
   0% {
     opacity: 0;
-    transform: scale(0.75);
+    transform: scale(0.9);
   }
   80% {
     opacity: 1;
@@ -54,6 +52,6 @@
   }
   to {
     opacity: 0;
-    transform: scale(0.925);
+    transform: scale(0.975);
   }
 }

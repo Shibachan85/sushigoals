@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import "./base.scss";
 
@@ -54,7 +55,9 @@ const PotionContent = (props) => {
       {/* <h4>Radius: {radius}</h4>
       <h4>Height: {height}</h4> */}
       <div
-        className={"potionContent"}
+        className={classNames("potionContent", {
+          mount_potionContent: props.showAchievement,
+        })}
         ref={contentNode}
         style={{ opacity: props.opacity, borderRadius: newRadius }}
       />

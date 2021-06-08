@@ -1,8 +1,15 @@
+import classNames from "classnames";
+import Firefly from "../Firefly/Firefly";
 import "./base.scss";
 
-const LoadingPage = () => {
+const LoadingPage = (props) => {
   return (
-    <div className={"loadingPageContainer"}>
+    <div
+      className={classNames("loadingPageContainer", {
+        unmount_loadingScreen: props.unmountLoadingScreen,
+      })}
+    >
+      <Firefly amount={10} />
       <svg width="0" height="0">
         <filter id="gooey-black-hole">
           <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur" />
@@ -24,7 +31,7 @@ const LoadingPage = () => {
           <li className="bubble"></li>
         </ul>
       </div>
-      <h3 className={"loadingTitle"}>Loading sushi rolls</h3>
+      <h3 className={"loadingTitle"}>Preparing sushi rolls</h3>
     </div>
   );
 };

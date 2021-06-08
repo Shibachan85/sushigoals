@@ -128,7 +128,7 @@ const MoonkinContainer = () => {
     return () => {
       clearAll();
     };
-  }, []);
+  }, [unmountMoonkin]);
 
   const clearAll = () => {
     clearInterval(interval);

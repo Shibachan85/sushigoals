@@ -28,11 +28,6 @@ const Potion = (props) => {
 
   return (
     <div className={"potionContainer"}>
-      <PotionContent
-        height={props.height}
-        max={props.max}
-        opacity={OPACITY.content}
-      />
       <img
         name={"cork"}
         style={{ opacity: OPACITY.cork }}
@@ -56,6 +51,12 @@ const Potion = (props) => {
         src={reflection_bottom}
         onLoad={handleLoad}
         alt={"potion"}
+      />
+      <PotionContent
+        height={props.height}
+        max={props.max}
+        opacity={OPACITY.content}
+        showAchievement={props.showAchievement}
       />
       <img
         name={"bottle_top"}

@@ -139,19 +139,23 @@ const AchievementContainer = (props) => {
   //const style = {transform: `scale(${v})`}
 
   return (
-    <div
-      className={classNames("achievementContainer", {
-        showAchievement: props.showAchievement,
-      })} //style={style}
-    >
-      <Potion
-        height={currentHeight}
-        max={MAX_HEIGHT}
-        loadingState={props.loadingState}
-        setLoadingState={props.setLoadingState}
-      />
-      {generateGoals()}
-    </div>
+    <>
+      {!props.showAchievement && <div className={"initialAchievement"} />}
+      <div
+        className={classNames("achievementContainer", {
+          showAchievement: props.showAchievement,
+        })} //style={style}
+      >
+        <Potion
+          height={currentHeight}
+          max={MAX_HEIGHT}
+          loadingState={props.loadingState}
+          setLoadingState={props.setLoadingState}
+          showAchievement={props.showAchievement}
+        />
+        {generateGoals()}
+      </div>
+    </>
   );
 };
 

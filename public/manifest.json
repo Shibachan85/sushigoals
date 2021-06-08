@@ -1,21 +1,21 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Sushi",
+  "name": "Sushi Guild - A World of Warcraft commewnity",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "sizes": "64x64",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "sushi_guild_logo_192-129.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x129"
     },
     {
-      "src": "logo512.png",
+      "src": "sushi_guild_logo_394-264_.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "394x264"
     }
   ],
   "start_url": ".",

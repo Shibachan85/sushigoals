@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./base.scss";
-//import HeaderLogo from "../../../resources/images/header.png";
-import HeaderLogo from "../../../resources/images/header_sushi_guild.png";
+import HeaderLogoOrange from "../../../resources/images/header_sushi_guild_orange.png";
 
 const MOBILE_HEADER_STICKY_POSITION = 80;
 const RELATIVE_TOP = 10;
@@ -41,7 +40,12 @@ const Header = (props) => {
 
   return (
     <div className={"siteHeader"} style={positionStyle}>
-      <img name={"logo"} src={HeaderLogo} onLoad={handleLoad} alt={"header"} />
+      <img
+        name={"logo"}
+        src={HeaderLogoOrange}
+        onLoad={handleLoad}
+        alt={"header"}
+      />
       <span className={"headerLine"} />
       <h3 className={"headerText"}>Vault achievement</h3>
     </div>

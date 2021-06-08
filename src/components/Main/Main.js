@@ -11,6 +11,7 @@ import {
 } from "../../utilities/customfunctions";
 import axios from "axios";
 import LoadingPage from "./LoadingPage/LoadingPage";
+import Firefly from "./Firefly/Firefly";
 
 let timeout = null;
 
@@ -32,6 +33,7 @@ const Main = () => {
     reflection_top: false,
   });
   const [showAchievement, setShowAchievement] = useState(false);
+  const [unmountLoadingScreen, setUnmountLoadingScreen] = useState(false);
 
   useEffect(() => {
     const result = Object.values(loadingState).includes(false);
@@ -48,7 +50,11 @@ const Main = () => {
           // possibly special handling to avoid futile "catch up" run
         }
         if (currentTime >= min) {
-          setIsLoading(result);
+          setUnmountLoadingScreen(true);
+          setTimeout(() => {
+            setIsLoading(false);
+            setShowAchievement(true);
+          }, 150);
         }
 
         currentTime++;
@@ -107,12 +113,8 @@ const Main = () => {
   // }, []);
 
   useEffect(() => {
-    !isLoading && setShowAchievement(true);
-  }, [isLoading]);
-
-  useEffect(() => {
     clearTimeout(timeout);
-  }, [showAchievement]);
+  }, [isLoading]);
 
   useEffect(() => {
     window.onresize = () => {
@@ -134,7 +136,7 @@ const Main = () => {
 
   return (
     <div className={"main"}>
-      {isLoading && <LoadingPage />}
+      {isLoading && <LoadingPage unmountLoadingScreen={unmountLoadingScreen} />}
       {/* <div
         style={{
           position: "absolute",
@@ -145,6 +147,7 @@ const Main = () => {
         }}
       >{`X: ${coords.x} Y: ${coords.y}`}</div> */}
       <Header loadingState={loadingState} setLoadingState={setLoadingState} />
+      <Firefly amount={2} />
       <ContentArea
         isMobile={isMobile}
         data={data}

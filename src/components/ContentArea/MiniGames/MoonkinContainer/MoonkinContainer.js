@@ -1,4 +1,7 @@
-import { BREAD_CRUMBS_COORDS } from "../../../../utilities/customfunctions";
+import {
+  API_URL,
+  BREAD_CRUMBS_COORDS,
+} from "../../../../utilities/customfunctions";
 import "./base.scss";
 import BreadCrumb from "./BreadCrumb/BreadCrumb";
 import Moonkin_Standing_Straight from "../../../../resources/images/moonkin/small/mk_standing_straight_small.png";
@@ -7,13 +10,13 @@ import Moonkin_Sitting_Straight from "../../../../resources/images/moonkin/small
 import Moonkin_Sitting_Eating_1 from "../../../../resources/images/moonkin/small/mk_sitting_eating_1_small.png";
 import Moonkin_Sitting_Eating_2 from "../../../../resources/images/moonkin/small/mk_sitting_eating_2_small.png";
 import KittyCat from "../../../../resources/images/kitty_small.png";
-
 import Moonkin from "./Moonkin/Moonkin";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { X_MODIFIER, Y_MODIFIER } from "../../../../utilities/customfunctions";
 import HoverModal from "./HoverModal/HoverModal";
 import Kitty from "./Kitty/Kitty";
 import classnames from "classnames";
+import axios from "axios";
 const html = document.querySelector("html");
 
 let interval = null;
@@ -141,6 +144,16 @@ const MoonkinContainer = () => {
     });
   };
 
+  const postBreadStatistics = useCallback(() => {
+    const bodyParameters = {
+      breadClick: true,
+    };
+
+    axios.post(API_URL + "/statistics", bodyParameters).catch((err) => {
+      console.error(err);
+    });
+  }, []);
+
   const handleClick = () => {
     setNoHover(true);
     setShowIntroNarrater(false);
@@ -216,7 +229,11 @@ const MoonkinContainer = () => {
       })
       .then(() => {
         setState(moonkinImgJSX[1]);
-        return wait(1000);
+        return wait(500);
+      })
+      .then(() => {
+        postBreadStatistics();
+        return wait(500);
       })
       .then(() => {
         setState(moonkinImgJSX[0]);

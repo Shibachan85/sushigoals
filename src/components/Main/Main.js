@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./base.scss";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
@@ -34,9 +34,11 @@ const Main = () => {
   });
   const [showAchievement, setShowAchievement] = useState(false);
   const [unmountLoadingScreen, setUnmountLoadingScreen] = useState(false);
+  const [failedToEdit, setFailedToEdit] = useState(false);
 
   useEffect(() => {
     const result = Object.values(loadingState).includes(false);
+
     if (!result) {
       let min = 3;
       let currentTime = 0;
@@ -83,7 +85,7 @@ const Main = () => {
     return sushiFortune;
   };
 
-  useEffect(() => {
+  const getContributers = useCallback(() => {
     axios
       .get(API_URL + "/guild-vault-contributers")
       .then((response) => {
@@ -95,6 +97,25 @@ const Main = () => {
         console.error(err);
       });
   }, []);
+
+  const postVisitStatistics = useCallback(() => {
+    const bodyParameters = {
+      siteLoaded: true,
+    };
+
+    axios.post(API_URL + "/statistics", bodyParameters).catch((err) => {
+      console.error(err);
+    });
+  }, []);
+
+  useEffect(() => {
+    getContributers();
+    const newSession = !JSON.parse(sessionStorage.getItem("session_success"));
+    if (newSession) {
+      postVisitStatistics();
+      sessionStorage.setItem("session_success", "true");
+    }
+  }, [getContributers, postVisitStatistics]);
 
   // const [coords, setCoords] = useState({ x: 0, y: 0 });
 
@@ -158,6 +179,8 @@ const Main = () => {
         setLoadingState={setLoadingState}
         isLoading={isLoading}
         showAchievement={showAchievement}
+        failedToEdit={failedToEdit}
+        setFailedToEdit={setFailedToEdit}
       />
       <Background
         loadingState={loadingState}
@@ -165,6 +188,15 @@ const Main = () => {
         isMobile={isMobile}
       />
       <Footer />
+      {failedToEdit && (
+        <div className={"overlay_mask"}>
+          <div className={"editFailed"}>
+            <p>You can only edit one contributer at a time</p>
+            <p>Please close your first edit</p>
+            <button onClick={() => setFailedToEdit(false)}>OK</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

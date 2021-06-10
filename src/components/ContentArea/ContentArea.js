@@ -11,13 +11,16 @@ import { useCurrentUser } from "../../utilities/Context/CurrentUser/CurrentUser"
 import { INTERVAL_GOLD, API_URL } from "../../utilities/customfunctions";
 import axios from "axios";
 import MiniGames from "./MiniGames/MiniGames";
+import Statistics from "./Statistics/Statistics";
 
 const ContentArea = (props) => {
   const [currentGold, setCurrentGold] = useState(0);
   const [loginIsOpen, setLoginIsOpen] = useState(false);
   const [donationIsOpen, setDonationIsOpen] = useState(false);
+  const [statsIsOpen, setStatsIsOpen] = useState(false);
   const [closeDonationWithAnimation, setCloseDonationWithAnimation] =
     useState(false);
+  const [closeStatsWithAnimation, setCloseStatsWithAnimation] = useState(false);
   const currentUser = useCurrentUser();
   const { getAllContributes } = props;
   const isAuthed = currentUser.isAuthed;
@@ -174,6 +177,9 @@ const ContentArea = (props) => {
         donationIsOpen={donationIsOpen}
         setDonationIsOpen={setDonationIsOpen}
         setCloseDonationWithAnimation={setCloseDonationWithAnimation}
+        statsIsOpen={statsIsOpen}
+        setStatsIsOpen={setStatsIsOpen}
+        setCloseStatsWithAnimation={setCloseStatsWithAnimation}
       />
       <AchievementContainer
         currentGold={currentGold}
@@ -188,6 +194,8 @@ const ContentArea = (props) => {
         isPending={props.isPending}
         isAuthed={isAuthed}
         getAllContributes={props.getAllContributes}
+        failedToEdit={props.failedToEdit}
+        setFailedToEdit={props.setFailedToEdit}
       />
       {!props.isMobile && <LanternController />}
       {loginIsOpen && !isAuthed && (
@@ -199,6 +207,13 @@ const ContentArea = (props) => {
           donationIsOpen={donationIsOpen}
           setDonationIsOpen={setDonationIsOpen}
           close={closeDonationWithAnimation}
+        />
+      )}
+      {statsIsOpen && isAuthed && (
+        <Statistics
+          statsIsOpen={statsIsOpen}
+          setStatsIsOpen={setStatsIsOpen}
+          close={closeStatsWithAnimation}
         />
       )}
       {!props.isMobile && <MiniGames />}

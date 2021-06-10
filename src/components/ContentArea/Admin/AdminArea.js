@@ -45,6 +45,11 @@ const AdminArea = (props) => {
     props.donationIsOpen && props.setCloseDonationWithAnimation(true);
   };
 
+  const handleStatsClick = () => {
+    !props.statsIsOpen && props.setStatsIsOpen(true);
+    props.statsIsOpen && props.setCloseStatsWithAnimation(true);
+  };
+
   return (
     <div
       className={classnames(
@@ -58,7 +63,7 @@ const AdminArea = (props) => {
       {props.isAuthed && (
         <div className={"adminPanel__buttonContainer"}>
           <button onClick={handleDonationClick}>Add donation</button>
-          <button>Statistics</button>
+          <button onClick={handleStatsClick}>Statistics</button>
         </div>
       )}
       <button

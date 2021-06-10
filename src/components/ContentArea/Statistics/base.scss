@@ -1,0 +1,82 @@
+.statsContainer {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 100px;
+  width: 349px;
+  height: 100px;
+  background-color: #0000009f;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.356);
+  z-index: 50;
+
+  -webkit-box-shadow: -3px 5px 15px 4px rgba(0, 0, 0, 0.41);
+  box-shadow: -3px 5px 15px 4px rgba(0, 0, 0, 0.41);
+
+  .innerStatsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+
+    .stats {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+
+      p + p {
+        margin-top: 5px;
+      }
+
+      //   p + p {
+      //     margin-left: 20px;
+      //   }
+      // h3{}
+      // p{}
+    }
+  }
+}
+
+.statsMount {
+  animation: mount 0.25s ease-out;
+}
+
+.statsUnmount {
+  animation: unmount 0.25s ease-out;
+}
+
+@keyframes mountStats {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes unmountStats {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .statsContainer {
+    right: unset;
+    top: 28%;
+    position: fixed;
+    background-color: #000000ce;
+  }
+}

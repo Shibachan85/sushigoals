@@ -26,6 +26,7 @@ const ContributerItem = (props) => {
       gold: props.content.gold,
     });
     setIsEditing(false);
+    props.setIsEditingContributer(false);
   };
 
   const handleSubmit = (e) => {
@@ -40,11 +41,28 @@ const ContributerItem = (props) => {
     props.updateContributer(data);
 
     setIsEditing(false);
+    props.setIsEditingContributer(false);
   };
 
   useEffect(() => {
-    isEditing && !props.isAuthed && setIsEditing(false);
-  }, [props.isAuthed, isEditing]);
+    if (isEditing && props.isEditingContributer && !props.isAuthed) {
+      setIsEditing(false);
+      props.setIsEditingContributer(false);
+    }
+  }, [props.isAuthed, isEditing, props]);
+
+  const handleContributerClick = () => {
+    if (props.isAuthed) {
+      if (!props.isEditingContributer) {
+        setIsEditing(true);
+        props.setIsEditingContributer(true);
+      } else {
+        if (!props.failedToEdit) {
+          props.setFailedToEdit(true);
+        }
+      }
+    }
+  };
 
   return (
     <div
@@ -61,9 +79,9 @@ const ContributerItem = (props) => {
           className={classnames("contributer__userContent", {
             authedInput: props.isAuthed,
           })}
-          onClick={() => props.isAuthed && setIsEditing(true)}
+          onClick={handleContributerClick}
         >
-          {isEditing ? (
+          {isEditing && props.isEditingContributer ? (
             <form onSubmit={handleSubmit}>
               <input
                 type={"text"}
@@ -77,7 +95,7 @@ const ContributerItem = (props) => {
             <p>{state.characterName}</p>
           )}
           <p> donated </p>
-          {isEditing ? (
+          {isEditing && props.isEditingContributer ? (
             <form onSubmit={handleSubmit}>
               <input
                 type={"text"}
@@ -93,7 +111,7 @@ const ContributerItem = (props) => {
           <p>gold</p>
         </div>
       )}
-      {isEditing && (
+      {isEditing && props.isEditingContributer && (
         <div className={"contributerBtnContainer"}>
           <button
             onClick={handleCancel}

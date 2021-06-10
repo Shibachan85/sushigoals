@@ -4,8 +4,11 @@ import ContributerItem from "../ContributerItem/ContributerItem";
 import "./base.scss";
 import axios from "axios";
 import { API_URL } from "../../../utilities/customfunctions";
+import { useState } from "react";
 
 const ContributersContainer = (props) => {
+  const [isEditingContributer, setIsEditingContributer] = useState(false);
+
   const updateContributer = (data) => {
     const bodyParameters = {
       name: data.name,
@@ -60,6 +63,8 @@ const ContributersContainer = (props) => {
               };
             };
 
+            console.log();
+
             return (
               <ContributerItem
                 key={contributer.name + "sushi" + contributer.id}
@@ -67,6 +72,10 @@ const ContributersContainer = (props) => {
                 isAchievement={contributer.isAchievement}
                 updateContributer={updateContributer}
                 isAuthed={props.isAuthed}
+                isEditingContributer={isEditingContributer}
+                setIsEditingContributer={setIsEditingContributer}
+                failedToEdit={props.failedToEdit}
+                setFailedToEdit={props.setFailedToEdit}
               />
             );
           })

@@ -21,7 +21,6 @@ const Statistics = (props) => {
       .get(API_URL + "/statistics", config)
       .then((response) => {
         const responseArray = response.data;
-        console.log(responseArray);
         const data = responseArray.reduce(
           (acc, cur) => {
             return {
@@ -33,9 +32,7 @@ const Statistics = (props) => {
           },
           { visits: 0, moonkinFeeds: 0 }
         );
-
         setStats(data);
-        console.log(data);
       })
       .catch((err) => {
         console.error(err);
@@ -68,8 +65,6 @@ const Statistics = (props) => {
       document.removeEventListener("mouseup", handleClick);
     };
   }, [handleClick]);
-
-  console.log(stats);
 
   return (
     <div

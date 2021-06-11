@@ -63,8 +63,6 @@ const ContributersContainer = (props) => {
               };
             };
 
-            console.log();
-
             return (
               <ContributerItem
                 key={contributer.name + "sushi" + contributer.id}

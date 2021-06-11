@@ -89,6 +89,7 @@ const ContributerItem = (props) => {
                 value={state.characterName}
                 onChange={handleChange}
                 style={{ width: setInputWidth(state.characterName, true) }}
+                required
               />{" "}
             </form>
           ) : (
@@ -103,6 +104,7 @@ const ContributerItem = (props) => {
                 value={state.gold}
                 onChange={handleChange}
                 style={{ width: setInputWidth(state.gold.toString(), false) }}
+                required
               />
             </form>
           ) : (

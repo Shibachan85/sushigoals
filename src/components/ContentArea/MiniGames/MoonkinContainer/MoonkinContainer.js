@@ -85,6 +85,7 @@ const MoonkinContainer = () => {
   const [unmountMoonkin, setUnmountMoonkin] = useState(false);
   const [moonkinImgJSX, setMoonkinImgJSX] = useState([]);
   const [kittyImgJSX, setKittyImgJSX] = useState(null);
+  const [showPointer, setShowPointer] = useState(true);
 
   const percentifyCoord = (coord, modifier) => {
     return (coord / modifier) * 100;
@@ -156,6 +157,7 @@ const MoonkinContainer = () => {
 
   const handleClick = () => {
     setNoHover(true);
+    setShowPointer(false);
     setShowIntroNarrater(false);
     wait(3000)
       .then(() => {
@@ -383,7 +385,11 @@ const MoonkinContainer = () => {
     <>
       {" "}
       <div
-        className={classnames("crumbContainer", { noHover: noHover })}
+        className={classnames(
+          "crumbContainer",
+          { noHover: noHover },
+          { showPointer: hoverIteration === 8 || !showPointer }
+        )}
         style={style}
         {...(!crumbsClicked &&
           hoverIteration < 9 && {

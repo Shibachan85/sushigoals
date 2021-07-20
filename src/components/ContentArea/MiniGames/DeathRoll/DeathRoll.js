@@ -40,6 +40,7 @@ const ikeLoses = [
   "That game was... Legendary!",
   "Deathrolling legend right here!",
   "Reeeeee I lost!",
+  "Oh noes I lost again, Muzi is looking at me angry neow!",
 ];
 
 const DeathRoll = (props) => {
@@ -216,15 +217,41 @@ const DeathRoll = (props) => {
     setWelcomeFromIke(true);
   };
 
-  const runWelcomeFromIke = useCallback(() => {
-    let name = userName;
-    let welcomeMsg = `Herrow ${name === YOU ? "fellow " : ""}Deathroller${
-      name === YOU ? "" : ` ${name}`
-    }, let's play!`;
+  const getWelcomeMessage = (name) => {
+    let customMessage;
 
     if (name === "Muzi" || name === "Auróra" || name === "Muz") {
-      welcomeMsg = `Herrow ${name}, my Deathrolling better half, let's play!`;
+      customMessage = (
+        <p>Herrow {name}, my Deathrolling better half, let's play!</p>
+      );
+    } else if (
+      name.toLowerCase() === "ogolog" ||
+      name.toLowerCase() === "ogo"
+    ) {
+      customMessage = (
+        <>
+          <p>
+            Herrow Deathroller {name},{" "}
+            <p>are you sure you have enough gold to roll?</p>
+          </p>
+        </>
+      );
+    } else {
+      customMessage = (
+        <>
+          <p>
+            Herrow {name === YOU ? "fellow " : ""}Deathroller
+            {name === YOU ? "" : " " + name},{" "}
+            {name.length < 10 ? <p> let's play!</p> : " let's play!"}
+          </p>
+        </>
+      );
     }
+    return customMessage;
+  };
+
+  const runWelcomeFromIke = useCallback(() => {
+    const welcomeMsg = getWelcomeMessage(userName);
 
     setCurrentMsg(welcomeMsg);
   }, [userName]);

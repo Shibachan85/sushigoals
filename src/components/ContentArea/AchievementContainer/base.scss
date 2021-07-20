@@ -41,6 +41,7 @@
   width: 380px;
   height: 430px;
   opacity: 0;
+  transition: all 1s;
 
   animation: mountFlask 0.35s ease-out;
   animation-fill-mode: forwards;
@@ -89,4 +90,8 @@
 
 .showAchievement {
   display: block;
+}
+
+.moveToSide {
+  right: 15% !important;
 }

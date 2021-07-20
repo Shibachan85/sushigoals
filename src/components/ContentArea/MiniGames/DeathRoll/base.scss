@@ -1,0 +1,183 @@
+.deathRollContainer {
+  position: absolute;
+  z-index: 1;
+  color: white;
+  left: 10%;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+
+  .deathrollContainerTop {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-height: 125px;
+    align-items: center;
+    background-color: #0000009f;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.356);
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 35px;
+    margin-bottom: 5px;
+    //cursor: pointer;
+    //color: rgba(255, 255, 255, 0.356);
+
+    .deathrollTitle {
+      font-size: 30px;
+      margin-bottom: 25px;
+    }
+    .deathRollWelcome,
+    .deathRollForm {
+      display: flex;
+      flex-direction: column;
+      input {
+        height: 23px !important;
+        margin-bottom: 10px;
+      }
+
+      button {
+        all: unset;
+        text-align: center;
+        padding: 1px 7px 4px 7px;
+        border: 1px solid rgba(255, 255, 255, 0.356);
+        border-radius: 3px;
+        color: rgba(255, 255, 255, 0.356);
+        margin-bottom: 5px;
+
+        &:hover {
+          border-color: white;
+          color: white;
+          cursor: pointer;
+        }
+
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none;
+      }
+    }
+    .deathrollErrorMsg {
+      color: red;
+    }
+    .deathrollStatisticsContainer {
+      position: absolute;
+      bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      box-sizing: border-box;
+      padding-left: 10px;
+      padding-right: 10px;
+      p {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .deathrollBaseButton {
+    all: unset;
+    width: 125px;
+    //width: 100%;
+    padding: 3px 0px 5px 0px;
+    background-color: rgb(61, 61, 61);
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(122, 122, 122);
+    }
+  }
+
+  .deathrollStartButton {
+    width: 100%;
+  }
+  .deathrollRestartButton {
+    width: 100%;
+  }
+
+  .pendingRollButton,
+  .noClick {
+    background-color: #0000009f;
+    color: rgba(255, 255, 255, 0.356);
+    pointer-events: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .deathRoll_rollContainer {
+    height: 35vh;
+    .deathRoll_Board {
+      min-width: 200px;
+      height: 35vh;
+      overflow-y: scroll;
+      background-color: #0000009f;
+      padding: 20px;
+      margin-bottom: 5px;
+      box-sizing: border-box;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.356);
+      display: flex;
+      flex-direction: column-reverse;
+
+      p {
+        color: yellow;
+      }
+
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: white;
+      }
+
+      /* width */
+      &::-webkit-scrollbar {
+        width: 6px;
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, 0);
+        border-radius: 4px;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.212) !important;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+.deathrollMount {
+  animation: drmount 0.25s ease-out;
+}
+
+.deathrollUnmount {
+  animation: drunmount 0.25s ease-out;
+}
+
+@keyframes drmount {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes drunmount {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0);
+    opacity: 0;
+  }
+}

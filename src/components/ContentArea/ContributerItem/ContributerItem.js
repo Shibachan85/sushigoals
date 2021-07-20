@@ -77,9 +77,9 @@ const ContributerItem = (props) => {
       ) : (
         <div
           className={classnames("contributer__userContent", {
-            authedInput: props.isAuthed,
+            authedInput: props.isAuthed && !isEditing,
           })}
-          onClick={handleContributerClick}
+          onClick={isEditing ? null : handleContributerClick}
         >
           {isEditing && props.isEditingContributer ? (
             <form onSubmit={handleSubmit}>

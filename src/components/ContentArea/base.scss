@@ -9,3 +9,23 @@
     align-items: center;
   }
 }
+
+.deathRollBtn {
+  all: unset;
+  position: absolute;
+  left: 100px;
+  top: 50px;
+  width: 125px;
+  padding: 3px 0px 5px 0px;
+  background-color: #0000009f;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.356);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.356);
+
+  &:hover {
+    color: white;
+    border-color: white;
+  }
+}

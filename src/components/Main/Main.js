@@ -31,13 +31,25 @@ const Main = () => {
     bottle_outline: false,
     bottle_outline_right: false,
     reflection_top: false,
+    ike_sitting: false,
+    fireplace: false,
+    fire: false,
   });
   const [showAchievement, setShowAchievement] = useState(false);
   const [unmountLoadingScreen, setUnmountLoadingScreen] = useState(false);
   const [failedToEdit, setFailedToEdit] = useState(false);
 
   useEffect(() => {
-    const result = Object.values(loadingState).includes(false);
+    let result;
+    if (isMobile) {
+      let modifiedForMobile = { ...loadingState };
+      delete modifiedForMobile.ike_sitting;
+      delete modifiedForMobile.fireplace;
+      delete modifiedForMobile.fire;
+      result = Object.values(modifiedForMobile).includes(false);
+    } else {
+      result = Object.values(loadingState).includes(false);
+    }
 
     if (!result) {
       let min = 3;
@@ -65,7 +77,7 @@ const Main = () => {
         setTimeout(step, Math.max(0, interval - dt)); // take into account drift
       }
     }
-  }, [loadingState]);
+  }, [loadingState, isMobile]);
 
   const getAllContributes = () => {
     !isPending && setIsPending(true);

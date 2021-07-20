@@ -8,8 +8,10 @@
   height: 200px;
   min-width: 150px;
   padding-left: 25px;
-  overflow-y: auto;
+  //box-sizing: border-box;
+  overflow-y: scroll;
   direction: rtl;
+  transition: all 1s;
 
   /* Track */
   // &::-webkit-scrollbar-track {
@@ -27,6 +29,8 @@
     background: transparent;
     border: 2px solid white;
     border-radius: 4px;
+    //padding-right: 25px;
+    margin-right: 25px;
   }
 
   /* Handle */
@@ -55,4 +59,8 @@
 .loadingStyle {
   display: block;
   overflow-y: unset;
+}
+
+.moveContributerContainerToSide {
+  left: -500px !important;
 }

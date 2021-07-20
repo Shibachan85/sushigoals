@@ -144,7 +144,8 @@ const AchievementContainer = (props) => {
       <div
         className={classNames("achievementContainer", {
           showAchievement: props.showAchievement,
-        })} //style={style}
+          moveToSide: props.showDeathRoll,
+        })}
       >
         <Potion
           height={currentHeight}

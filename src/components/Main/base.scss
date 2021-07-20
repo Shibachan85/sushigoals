@@ -21,9 +21,9 @@
     overflow: unset;
   }
 
-  button {
-    all: unset;
-  }
+  // button {
+  //   all: unset;
+  // }
 }
 
 // @media only screen and (max-width: 640px) {
@@ -68,7 +68,6 @@
     box-shadow: -3px 5px 15px 4px rgba(0, 0, 0, 0.41);
 
     button {
-      all: unset;
       margin-top: 25px;
       width: 33%;
       text-align: center;

@@ -40,6 +40,7 @@ const ContributersContainer = (props) => {
     <div
       className={classNames("constributersContainer", {
         loadingStyle: props.isPending,
+        moveContributerContainerToSide: props.showDeathRoll,
       })}
     >
       {props.isPending ? (
@@ -50,13 +51,13 @@ const ContributersContainer = (props) => {
             const setContent = () => {
               if (contributer.isAchievement) {
                 return {
-                  id: contributer.id,
+                  id: contributer._id,
                   name: contributer.name,
                   isAchievement: contributer.isAchievement,
                 };
               }
               return {
-                id: contributer.id,
+                id: contributer._id,
                 name: contributer.name,
                 gold: contributer.gold,
                 isAchievement: contributer.isAchievement,
@@ -65,7 +66,7 @@ const ContributersContainer = (props) => {
 
             return (
               <ContributerItem
-                key={contributer.name + "sushi" + contributer.id}
+                key={contributer.name + "sushi" + contributer._id}
                 content={setContent()}
                 isAchievement={contributer.isAchievement}
                 updateContributer={updateContributer}

@@ -7,11 +7,11 @@ export const X_MODIFIER = 1536;
 export const Y_MODIFIER = 720;
 export const MOBILE_WIDTH = 640;
 
-const DEV = "http://localhost:1337";
-// const PREP = "PREP";
+//const DEV = "http://localhost:1337";
+//const PREP = "PREP";
 const PROD = process.env.REACT_APP_API_URL;
 
-export const API_URL = DEV;
+export const API_URL = PROD;
 const SCREEN_WIDTH = window.screen.width;
 
 export const deviceIsMobile = () => {

@@ -29,3 +29,18 @@
     border-color: white;
   }
 }
+
+.deathrollMount {
+  animation: drmount 0.25s ease-out;
+}
+
+@keyframes drbtnmount {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

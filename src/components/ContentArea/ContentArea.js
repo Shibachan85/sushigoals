@@ -27,6 +27,7 @@ const ContentArea = (props) => {
     useState(false);
   const currentUser = useCurrentUser();
   const [showDeathRoll, setShowDeathRoll] = useState(false);
+  const [showDeathrollButton, setShowDeathrollButton] = useState(true);
   const { getAllContributes } = props;
   const isAuthed = currentUser.isAuthed;
 
@@ -181,6 +182,10 @@ const ContentArea = (props) => {
         setCloseDeathrollWithAnimation(false);
       }, 225);
     } else {
+      setShowDeathrollButton(false);
+      setTimeout(() => {
+        setShowDeathrollButton(true);
+      }, 2000);
       if (deathrollTimeout) {
         clearTimeout(deathrollTimeout);
       }
@@ -246,9 +251,14 @@ const ContentArea = (props) => {
           closeDeathrollWithAnimation={closeDeathrollWithAnimation}
         />
       )}
-      <button className={"deathRollBtn"} onClick={handleToggleDeathroll}>
-        {showDeathRoll ? "Exit Deathroll" : "Deathroll"}
-      </button>
+      {showDeathrollButton && (
+        <button
+          className={"deathRollBtn deathrollMount"}
+          onClick={handleToggleDeathroll}
+        >
+          {showDeathRoll ? "Exit Deathroll" : "Deathroll"}
+        </button>
+      )}
     </div>
   );
 };

@@ -13,6 +13,8 @@ import axios from "axios";
 import MiniGames from "./MiniGames/MiniGames";
 import Statistics from "./Statistics/Statistics";
 
+let deathrollTimeout = null;
+
 const ContentArea = (props) => {
   const [currentGold, setCurrentGold] = useState(0);
   const [loginIsOpen, setLoginIsOpen] = useState(false);
@@ -21,7 +23,10 @@ const ContentArea = (props) => {
   const [closeDonationWithAnimation, setCloseDonationWithAnimation] =
     useState(false);
   const [closeStatsWithAnimation, setCloseStatsWithAnimation] = useState(false);
+  const [closeDeathrollWithAnimation, setCloseDeathrollWithAnimation] =
+    useState(false);
   const currentUser = useCurrentUser();
+  const [showDeathRoll, setShowDeathRoll] = useState(false);
   const { getAllContributes } = props;
   const isAuthed = currentUser.isAuthed;
 
@@ -168,6 +173,21 @@ const ContentArea = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.data]);
 
+  const handleToggleDeathroll = () => {
+    if (showDeathRoll) {
+      setCloseDeathrollWithAnimation(true);
+      deathrollTimeout = setTimeout(() => {
+        setShowDeathRoll(false);
+        setCloseDeathrollWithAnimation(false);
+      }, 225);
+    } else {
+      if (deathrollTimeout) {
+        clearTimeout(deathrollTimeout);
+      }
+      setShowDeathRoll(true);
+    }
+  };
+
   return (
     <div className={"contentArea"}>
       <AdminArea
@@ -187,6 +207,7 @@ const ContentArea = (props) => {
         loadingState={props.loadingState}
         setLoadingState={props.setLoadingState}
         showAchievement={props.showAchievement}
+        showDeathRoll={showDeathRoll}
       />
       <Summery currentGold={currentGold} isPending={props.isPending} />
       <ContributersContainer
@@ -196,6 +217,7 @@ const ContentArea = (props) => {
         getAllContributes={props.getAllContributes}
         failedToEdit={props.failedToEdit}
         setFailedToEdit={props.setFailedToEdit}
+        showDeathRoll={showDeathRoll}
       />
       {!props.isMobile && <LanternController />}
       {loginIsOpen && !isAuthed && (
@@ -216,7 +238,17 @@ const ContentArea = (props) => {
           close={closeStatsWithAnimation}
         />
       )}
-      {!props.isMobile && <MiniGames />}
+      {!props.isMobile && (
+        <MiniGames
+          showDeathRoll={showDeathRoll}
+          loadingState={props.loadingState}
+          setLoadingState={props.setLoadingState}
+          closeDeathrollWithAnimation={closeDeathrollWithAnimation}
+        />
+      )}
+      <button className={"deathRollBtn"} onClick={handleToggleDeathroll}>
+        {showDeathRoll ? "Exit Deathroll" : "Deathroll"}
+      </button>
     </div>
   );
 };

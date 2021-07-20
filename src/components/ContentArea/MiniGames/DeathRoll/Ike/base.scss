@@ -1,0 +1,92 @@
+.ikeContainer {
+  position: absolute;
+  left: 43%;
+  bottom: 20%;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  .ikeImageContainer {
+    margin-right: auto;
+    .ikeCharacter {
+      width: 120px;
+    }
+    .fireplaceContainer {
+      position: absolute;
+
+      .fireplace {
+        position: absolute;
+        bottom: -10px;
+        left: -50px;
+        width: 140px;
+      }
+      .fire {
+        position: absolute;
+        bottom: 18px;
+        width: 45px;
+        left: -6px;
+        filter: saturate(3);
+      }
+    }
+  }
+  .deathrollBaseButton {
+    all: unset;
+    width: 125px;
+    color: white;
+    padding: 3px 0px 5px 0px;
+    background-color: rgb(61, 61, 61);
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(122, 122, 122);
+    }
+  }
+
+  .pendingRollButton,
+  .noClick {
+    background-color: #0000009f;
+    color: rgba(255, 255, 255, 0.356);
+    pointer-events: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .deathRoll_Rollbutton {
+    position: absolute;
+    bottom: -50px;
+    left: -40px;
+  }
+}
+
+.ikeMount {
+  animation: ikemount 0.25s ease-out;
+}
+
+.ikeUnmount {
+  animation: ikeunmount 0.25s ease-out;
+}
+
+@keyframes ikemount {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ikeunmount {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0);
+    opacity: 0;
+  }
+}

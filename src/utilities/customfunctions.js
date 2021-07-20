@@ -8,7 +8,7 @@ export const Y_MODIFIER = 720;
 export const MOBILE_WIDTH = 640;
 
 //const DEV = "http://localhost:1337";
-// const PREP = "PREP";
+//const PREP = "PREP";
 const PROD = process.env.REACT_APP_API_URL;
 
 export const API_URL = PROD;

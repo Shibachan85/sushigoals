@@ -16,6 +16,12 @@ export const images = [
   "../resources/images/potion_vial/reflection_top.png",
 ];
 
+export const deathrollImages = [
+  { ike_sitting: "../resources/images/ike/ike_sitting_1.png" },
+  { fireplace: "../resources/images/ike/fireplace_1.png" },
+  { fire: "../resources/images/ike/fire_2.gif" },
+];
+
 // const [isLoading, setIsLoading] = useState(true);
 
 // useEffect(() => {

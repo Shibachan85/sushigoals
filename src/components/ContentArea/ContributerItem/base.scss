@@ -2,7 +2,9 @@
   display: flex;
   color: white;
   direction: ltr;
-
+  //padding-left: 25px;
+  //box-sizing: border-box;
+  //min-width: 300px;
   p {
     margin: 0;
   }
@@ -15,10 +17,6 @@
   }
 
   .authedInput {
-    input {
-      border-radius: 5px;
-    }
-
     &:hover {
       cursor: pointer;
       color: rgba(255, 255, 255, 0.356);

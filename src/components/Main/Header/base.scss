@@ -70,7 +70,7 @@
   // font-size: 45px;
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 1024px) {
   .siteHeader {
     display: flex;
     flex-direction: column;
@@ -79,12 +79,12 @@
     position: sticky;
     top: 10px;
     z-index: 100;
-    img {
-      width: 60%;
-    }
+    // img {
+    //   width: 60%;
+    // }
 
     .headerLine {
-      width: 50%;
+      //width: 50%;
       margin-top: 5px;
       margin-bottom: 12px;
     }
@@ -92,6 +92,11 @@
     .headerText {
       font-size: 30px;
       //text-shadow: unset;
+    }
+  }
+  @media screen and (orientation: landscape) {
+    .siteHeader {
+      padding-top: 30px;
     }
   }
 }

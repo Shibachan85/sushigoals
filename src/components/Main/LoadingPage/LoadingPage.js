@@ -1,8 +1,19 @@
 import classNames from "classnames";
+import { useEffect } from "react";
 import Firefly from "../Firefly/Firefly";
 import "./base.scss";
 
+const body = document.body;
+const NO_SCROLL = "no-scroll";
+
 const LoadingPage = (props) => {
+  useEffect(() => {
+    body.classList.add(NO_SCROLL);
+    return () => {
+      body.classList.remove(NO_SCROLL);
+    };
+  }, []);
+
   return (
     <div
       className={classNames("loadingPageContainer", {

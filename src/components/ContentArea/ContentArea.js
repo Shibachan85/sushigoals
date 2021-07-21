@@ -251,7 +251,7 @@ const ContentArea = (props) => {
           closeDeathrollWithAnimation={closeDeathrollWithAnimation}
         />
       )}
-      {showDeathrollButton && (
+      {showDeathrollButton && !props.isMobile && (
         <button
           className={"deathRollBtn deathrollMount"}
           onClick={handleToggleDeathroll}

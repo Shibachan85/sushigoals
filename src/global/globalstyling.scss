@@ -12,6 +12,10 @@ body {
   overflow: overlay;
 }
 
+.no-scroll {
+  overflow: hidden !important;
+}
+
 html {
   background-color: black;
 }

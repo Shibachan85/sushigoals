@@ -5,7 +5,7 @@ export const BOTTOM_PADDING = 17;
 export const LINE_HEIGHT = 4;
 export const X_MODIFIER = 1536;
 export const Y_MODIFIER = 720;
-export const MOBILE_WIDTH = 640;
+export const MOBILE_WIDTH = 1025;
 
 //const DEV = "http://localhost:1337";
 //const PREP = "PREP";

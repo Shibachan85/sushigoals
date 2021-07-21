@@ -9,7 +9,7 @@
   box-sizing: border-box;
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0.356);
-  z-index: 50;
+  z-index: 100;
 
   form {
     display: flex;
@@ -63,7 +63,7 @@
   -webkit-box-shadow: -3px 5px 15px 4px rgba(0, 0, 0, 0.41);
   box-shadow: -3px 5px 15px 4px rgba(0, 0, 0, 0.41);
 
-  @media only screen and (max-width: 640px) {
+  @media only screen and (max-width: 1024px) {
     position: fixed;
     right: unset;
     top: 28%;

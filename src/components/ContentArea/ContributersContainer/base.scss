@@ -45,7 +45,7 @@
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
-  @media only screen and (max-width: 640px) {
+  @media only screen and (max-width: 1024px) {
     position: relative;
     top: 0;
     left: 0;
